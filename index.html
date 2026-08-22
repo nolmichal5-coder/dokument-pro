@@ -1,426 +1,438 @@
 <!doctype html>
 <html lang="pl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PorównajCeny — znajdź najlepszą cenę usługi</title>
-  <meta name="description" content="Porównuj ceny usług w swojej okolicy i wybieraj najlepszą ofertę.">
-
-  <style>
-    :root {
-      --bg: #f6f8fb;
-      --white: #ffffff;
-      --text: #172033;
-      --muted: #667085;
-      --line: #e5e9f0;
-      --blue: #155eef;
-      --blue-dark: #0f4ac4;
-      --blue-light: #eef4ff;
-      --shadow: 0 12px 35px rgba(16,24,40,.08);
-      --radius: 16px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, Arial, sans-serif;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .container {
-      width: min(1160px, calc(100% - 40px));
-      margin: auto;
-    }
-
-    /* NAVBAR */
-
-    header {
-      height: 74px;
-      background: white;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      align-items: center;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.7px;
-    }
-
-    .logo span {
-      color: var(--blue);
-    }
-
-    .links {
-      display: flex;
-      gap: 30px;
-      color: #475467;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .links a:hover {
-      color: var(--blue);
-    }
-
-    /* HERO */
-
-    .hero {
-      background: white;
-      padding: 76px 0 68px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .hero-inner {
-      max-width: 1000px;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      background: var(--blue-light);
-      color: var(--blue);
-      border: 1px solid #d9e6ff;
-      border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .3px;
-    }
-
-    h1 {
-      font-size: clamp(38px, 5vw, 62px);
-      line-height: 1.03;
-      letter-spacing: -2.5px;
-      margin: 20px 0 18px;
-      max-width: 800px;
-    }
-
-    .lead {
-      font-size: 18px;
-      line-height: 1.65;
-      color: var(--muted);
-      max-width: 700px;
-      margin: 0 0 32px;
-    }
-
-    /* SEARCH */
-
-    .search-box {
-      background: white;
-      border: 1px solid #d8dee8;
-      border-radius: 18px;
-      padding: 8px;
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-columns: 1.35fr 1fr 1fr auto;
-      gap: 8px;
-      max-width: 1000px;
-    }
-
-    input,
-    select {
-      width: 100%;
-      height: 54px;
-      border: 1px solid transparent;
-      border-radius: 12px;
-      background: #f7f9fc;
-      padding: 0 15px;
-      font-size: 14px;
-      color: var(--text);
-      outline: none;
-    }
-
-    input:focus,
-    select:focus {
-      border-color: #a9c7ff;
-      background: white;
-      box-shadow: 0 0 0 3px var(--blue-light);
-    }
-
-    button {
-      height: 54px;
-      border: 0;
-      border-radius: 12px;
-      padding: 0 24px;
-      background: var(--blue);
-      color: white;
-      font-weight: 750;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: var(--blue-dark);
-    }
-
-    .trust {
-      display: flex;
-      gap: 28px;
-      flex-wrap: wrap;
-      margin-top: 22px;
-      color: #667085;
-      font-size: 13px;
-    }
-
-    .trust b {
-      color: #344054;
-    }
-
-    /* STATS */
-
-    section {
-      padding: 58px 0;
-    }
-
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .stat {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 24px;
-    }
-
-    .stat strong {
-      font-size: 28px;
-      display: block;
-      margin-bottom: 7px;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    /* OFERTY */
-
-    .section-head {
-      margin-bottom: 24px;
-    }
-
-    h2 {
-      font-size: 28px;
-      letter-spacing: -.8px;
-      margin: 0;
-    }
-
-    .section-head p {
-      color: var(--muted);
-      margin: 7px 0 0;
-    }
-
-    .results {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      background: white;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: 0 4px 15px rgba(16,24,40,.03);
-    }
-
-    .tag {
-      display: inline-block;
-      padding: 6px 9px;
-      border-radius: 7px;
-      background: #f2f4f7;
-      color: #475467;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    .card h3 {
-      font-size: 18px;
-      margin: 16px 0 7px;
-    }
-
-    .provider {
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .location {
-      margin-top: 15px;
-      color: #475467;
-      font-size: 13px;
-    }
-
-    .price-row {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      border-top: 1px solid var(--line);
-      margin-top: 18px;
-      padding-top: 17px;
-    }
-
-    .price strong {
-      font-size: 25px;
-    }
-
-    .price small {
-      color: var(--muted);
-    }
-
-    .mini-btn {
-      height: 40px;
-      padding: 0 14px;
-      font-size: 13px;
-    }
-
-    .empty {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 45px;
-      color: var(--muted);
-      border: 1px dashed #cfd6e2;
-      border-radius: var(--radius);
-      background: white;
-    }
-
-    /* JAK DZIAŁA */
-
-    .how {
-      background: white;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .step {
-      padding: 24px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-    }
-
-    .number {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: var(--blue-light);
-      color: var(--blue);
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      margin-bottom: 17px;
-    }
-
-    .step h3 {
-      margin: 0 0 8px;
-      font-size: 17px;
-    }
-
-    .step p {
-      margin: 0;
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 14px;
-    }
-
-    /* FOOTER */
-
-    footer {
-      background: #101828;
-      color: #d0d5dd;
-      padding: 35px 0;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: center;
-    }
-
-    footer .logo {
-      color: white;
-    }
-
-    footer .logo span {
-      color: #84adff;
-    }
-
-    footer small {
-      color: #98a2b3;
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 850px) {
-
-      .search-box {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .results,
-      .stats,
-      .steps {
-        grid-template-columns: 1fr;
-      }
-
-      .links {
-        display: none;
-      }
-    }
-
-    @media (max-width: 560px) {
-
-      .container {
-        width: calc(100% - 24px);
-      }
-
-      .hero {
-        padding: 48px 0;
-      }
-
-      .search-box {
-        grid-template-columns: 1fr;
-      }
-
-      .trust {
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>PorównajCeny — porównuj ceny usług</title>
+<meta name="description" content="Porównuj ceny usług w Polsce. Znajdź usługę, miasto i najlepszą ofertę.">
+
+<style>
+:root{
+  --bg:#f5f7fa;
+  --white:#fff;
+  --text:#172033;
+  --muted:#667085;
+  --line:#e4e7ec;
+  --blue:#155eef;
+  --blue-dark:#104bbd;
+  --blue-light:#eef4ff;
+  --green:#12b76a;
+  --shadow:0 12px 35px rgba(16,24,40,.08);
+  --radius:16px;
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,Helvetica,sans-serif;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.container{
+  width:min(1160px,calc(100% - 40px));
+  margin:auto;
+}
+
+/* NAV */
+
+header{
+  min-height:74px;
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:-.7px;
+}
+
+.logo span{color:var(--blue)}
+
+.links{
+  display:flex;
+  gap:30px;
+  color:#475467;
+  font-size:14px;
+  font-weight:600;
+}
+
+.links a:hover{color:var(--blue)}
+
+.clock{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:8px 12px;
+  background:#f8fafc;
+  border:1px solid var(--line);
+  border-radius:10px;
+  color:#475467;
+  font-size:12px;
+  font-weight:700;
+  white-space:nowrap;
+}
+
+.dot{
+  width:8px;
+  height:8px;
+  background:var(--green);
+  border-radius:50%;
+  box-shadow:0 0 0 4px rgba(18,183,106,.12);
+}
+
+/* HERO */
+
+.hero{
+  background:#fff;
+  padding:75px 0 65px;
+  border-bottom:1px solid var(--line);
+}
+
+.hero-inner{max-width:1000px}
+
+.badge{
+  display:inline-flex;
+  padding:8px 12px;
+  background:var(--blue-light);
+  color:var(--blue);
+  border:1px solid #d9e6ff;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+}
+
+h1{
+  font-size:clamp(38px,5vw,62px);
+  line-height:1.03;
+  letter-spacing:-2.5px;
+  margin:20px 0 18px;
+}
+
+.lead{
+  max-width:700px;
+  margin:0 0 32px;
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.65;
+}
+
+/* SEARCH */
+
+.search-box{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr auto;
+  gap:8px;
+  max-width:1000px;
+  padding:8px;
+  background:#fff;
+  border:1px solid #d8dee8;
+  border-radius:18px;
+  box-shadow:var(--shadow);
+}
+
+input,select{
+  width:100%;
+  height:54px;
+  padding:0 15px;
+  background:#f7f9fc;
+  color:var(--text);
+  border:1px solid transparent;
+  border-radius:12px;
+  outline:none;
+  font-size:14px;
+}
+
+input:focus,select:focus{
+  background:#fff;
+  border-color:#a9c7ff;
+  box-shadow:0 0 0 3px var(--blue-light);
+}
+
+button{
+  height:54px;
+  padding:0 24px;
+  background:var(--blue);
+  color:#fff;
+  border:0;
+  border-radius:12px;
+  font-size:14px;
+  font-weight:750;
+  cursor:pointer;
+}
+
+button:hover{background:var(--blue-dark)}
+
+button:disabled{
+  opacity:.6;
+  cursor:wait;
+}
+
+.trust{
+  display:flex;
+  flex-wrap:wrap;
+  gap:28px;
+  margin-top:22px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.trust b{color:#344054}
+
+.status{
+  min-height:20px;
+  margin-top:14px;
+  font-size:13px;
+}
+
+.status.error{color:#b42318}
+.status.success{color:#027a48}
+
+/* SECTIONS */
+
+section{padding:58px 0}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+
+.stat{
+  padding:24px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+}
+
+.stat strong{
+  display:block;
+  margin-bottom:7px;
+  font-size:28px;
+}
+
+.stat span{
+  color:var(--muted);
+  font-size:14px;
+}
+
+/* OFFERS */
+
+.section-head{margin-bottom:24px}
+
+h2{
+  margin:0;
+  font-size:28px;
+  letter-spacing:-.8px;
+}
+
+.section-head p{
+  margin:7px 0 0;
+  color:var(--muted);
+}
+
+.results{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.card{
+  padding:22px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:0 4px 15px rgba(16,24,40,.03);
+}
+
+.tag{
+  display:inline-block;
+  padding:6px 9px;
+  background:#f2f4f7;
+  color:#475467;
+  border-radius:7px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.verified{
+  display:inline-block;
+  margin-left:5px;
+  padding:6px 9px;
+  background:#ecfdf3;
+  color:#027a48;
+  border-radius:7px;
+  font-size:11px;
+  font-weight:700;
+}
+
+.card h3{
+  margin:16px 0 7px;
+  font-size:18px;
+}
+
+.provider{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.location{
+  margin-top:15px;
+  color:#475467;
+  font-size:13px;
+}
+
+.price-row{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:18px;
+  padding-top:17px;
+  border-top:1px solid var(--line);
+}
+
+.price strong{font-size:25px}
+.price small{color:var(--muted)}
+
+.mini{
+  height:40px;
+  padding:0 14px;
+  font-size:13px;
+}
+
+.empty{
+  grid-column:1/-1;
+  padding:45px;
+  background:#fff;
+  border:1px dashed #cfd6e2;
+  border-radius:var(--radius);
+  text-align:center;
+  color:var(--muted);
+}
+
+.loading{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+}
+
+.spinner{
+  width:18px;
+  height:18px;
+  border:3px solid #dbe5ff;
+  border-top-color:var(--blue);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+/* HOW */
+
+.how{
+  background:#fff;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.step{
+  padding:24px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+}
+
+.number{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  margin-bottom:17px;
+  background:var(--blue-light);
+  color:var(--blue);
+  border-radius:50%;
+  font-weight:800;
+}
+
+.step h3{
+  margin:0 0 8px;
+  font-size:17px;
+}
+
+.step p{
+  margin:0;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.55;
+}
+
+/* FOOTER */
+
+footer{
+  padding:35px 0;
+  background:#101828;
+  color:#d0d5dd;
+}
+
+.footer-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+
+footer .logo{color:#fff}
+footer .logo span{color:#84adff}
+footer small{color:#98a2b3}
+
+/* MOBILE */
+
+@media(max-width:900px){
+  .search-box{grid-template-columns:1fr 1fr}
+  .results,.stats,.steps{grid-template-columns:1fr}
+  .links{display:none}
+}
+
+@media(max-width:600px){
+  .container{width:calc(100% - 24px)}
+  .nav{flex-wrap:wrap}
+  .clock{order:3;width:100%;justify-content:center}
+  .hero{padding:48px 0}
+  .search-box{grid-template-columns:1fr}
+  .trust{flex-direction:column;gap:12px}
+  .footer-inner{flex-direction:column;align-items:flex-start}
+}
+</style>
 </head>
 
 <body>
@@ -438,223 +450,149 @@
       <a href="#jak-dziala">Jak to działa?</a>
     </nav>
 
+    <div class="clock">
+      <span class="dot"></span>
+      <span id="clock">Ładowanie czasu...</span>
+    </div>
+
   </div>
 </header>
 
-
 <main>
 
-  <!-- GŁÓWNA SEKCJA -->
+<section class="hero" id="wyszukiwarka">
+  <div class="container">
+    <div class="hero-inner">
 
-  <section class="hero" id="wyszukiwarka">
+      <div class="badge">
+        PROSTE PORÓWNANIE • LEPSZY WYBÓR
+      </div>
 
-    <div class="container">
+      <h1>
+        Znajdź dobrą usługę<br>
+        za dobrą cenę.
+      </h1>
 
-      <div class="hero-inner">
+      <p class="lead">
+        Porównuj oferty usługodawców w Polsce.
+        Wybierz usługę, miasto i sprawdź dostępne ceny.
+      </p>
 
-        <div class="eyebrow">
-          PROSTE PORÓWNANIE • LEPSZY WYBÓR
-        </div>
+      <form class="search-box" id="searchForm">
 
-        <h1>
-          Znajdź dobrą usługę<br>
-          za dobrą cenę.
-        </h1>
+        <input
+          id="query"
+          type="search"
+          placeholder="Czego szukasz? np. fryzjer, hydraulik…"
+        >
 
-        <p class="lead">
-          Porównuj oferty usługodawców w Polsce.
-          Wpisz, czego potrzebujesz, wybierz miasto
-          i zobacz dostępne ceny.
-        </p>
+        <select id="city">
+          <option value="">Wszystkie miasta</option>
+        </select>
 
+        <select id="category">
+          <option value="">Wszystkie usługi</option>
+        </select>
 
-        <form class="search-box" id="searchForm">
+        <button id="searchButton" type="submit">
+          Szukaj
+        </button>
 
-          <input
-            id="query"
-            type="search"
-            placeholder="Czego szukasz? np. fryzjer, hydraulik…"
-          >
+      </form>
 
-          <select id="city">
-            <option value="">Wszystkie miasta</option>
-            <option>Warszawa</option>
-            <option>Kraków</option>
-            <option>Wrocław</option>
-            <option>Poznań</option>
-            <option>Gdańsk</option>
-            <option>Katowice</option>
-          </select>
+      <div id="status" class="status"></div>
 
-          <select id="category">
-            <option value="">Wszystkie usługi</option>
-            <option>Fryzjer</option>
-            <option>Hydraulik</option>
-            <option>Mechanik</option>
-            <option>Fotograf</option>
-            <option>Sprzątanie</option>
-          </select>
+      <div class="trust">
+        <span>✓ <b>Aktualne oferty</b></span>
+        <span>✓ <b>Porównanie cen</b></span>
+        <span>✓ <b>Bez rejestracji</b></span>
+      </div>
 
-          <button type="submit">
-            Szukaj
-          </button>
+    </div>
+  </div>
+</section>
 
-        </form>
+<section>
+  <div class="container">
 
+    <div class="stats">
 
-        <div class="trust">
+      <div class="stat">
+        <strong id="offerCount">0</strong>
+        <span>ofert w bazie</span>
+      </div>
 
-          <span>✓ <b>Aktualne oferty</b></span>
+      <div class="stat">
+        <strong id="cityCount">0</strong>
+        <span>miast</span>
+      </div>
 
-          <span>✓ <b>Porównanie cen</b></span>
-
-          <span>✓ <b>Bez rejestracji</b></span>
-
-        </div>
-
+      <div class="stat">
+        <strong id="categoryCount">0</strong>
+        <span>kategorii usług</span>
       </div>
 
     </div>
 
-  </section>
+  </div>
+</section>
 
+<section id="oferty">
+  <div class="container">
 
-  <!-- STATYSTYKI -->
+    <div class="section-head">
+      <h2>Oferty</h2>
+      <p id="description">
+        Najlepsze ceny znalezione w bazie.
+      </p>
+    </div>
 
-  <section>
+    <div class="results" id="results">
+      <div class="empty loading">
+        <span class="spinner"></span>
+        Wczytywanie ofert…
+      </div>
+    </div>
 
-    <div class="container">
+  </div>
+</section>
 
-      <div class="stats">
+<section class="how" id="jak-dziala">
+  <div class="container">
 
-        <div class="stat">
-          <strong id="offerCount">0</strong>
-          <span>ofert w bazie</span>
-        </div>
+    <div class="section-head">
+      <h2>Jak to działa?</h2>
+      <p>Trzy proste kroki do znalezienia korzystnej oferty.</p>
+    </div>
 
-        <div class="stat">
-          <strong id="cityCount">0</strong>
-          <span>miast</span>
-        </div>
+    <div class="steps">
 
-        <div class="stat">
-          <strong>24/7</strong>
-          <span>dostęp do porównywarki</span>
-        </div>
+      <div class="step">
+        <div class="number">1</div>
+        <h3>Wyszukaj usługę</h3>
+        <p>Wpisz nazwę usługi albo wybierz kategorię.</p>
+      </div>
 
+      <div class="step">
+        <div class="number">2</div>
+        <h3>Wybierz miasto</h3>
+        <p>Zawęź wyniki do miejsca, w którym szukasz usługi.</p>
+      </div>
+
+      <div class="step">
+        <div class="number">3</div>
+        <h3>Porównaj ceny</h3>
+        <p>Sprawdź oferty i wybierz tę, która najbardziej Ci odpowiada.</p>
       </div>
 
     </div>
 
-  </section>
-
-
-  <!-- OFERTY -->
-
-  <section id="oferty">
-
-    <div class="container">
-
-      <div class="section-head">
-
-        <h2>Polecane oferty</h2>
-
-        <p>
-          Najlepsze ceny znalezione w bazie.
-        </p>
-
-      </div>
-
-
-      <div class="results" id="results">
-
-        <div class="empty">
-          Wczytywanie ofert…
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- JAK DZIAŁA -->
-
-  <section class="how" id="jak-dziala">
-
-    <div class="container">
-
-      <div class="section-head">
-
-        <h2>Jak to działa?</h2>
-
-        <p>
-          Trzy proste kroki do znalezienia korzystnej oferty.
-        </p>
-
-      </div>
-
-
-      <div class="steps">
-
-        <div class="step">
-
-          <div class="number">1</div>
-
-          <h3>
-            Wyszukaj usługę
-          </h3>
-
-          <p>
-            Wpisz nazwę usługi albo wybierz ją z listy.
-          </p>
-
-        </div>
-
-
-        <div class="step">
-
-          <div class="number">2</div>
-
-          <h3>
-            Wybierz miasto
-          </h3>
-
-          <p>
-            Zawęź wyniki do miejsca,
-            w którym chcesz skorzystać z usługi.
-          </p>
-
-        </div>
-
-
-        <div class="step">
-
-          <div class="number">3</div>
-
-          <h3>
-            Porównaj ceny
-          </h3>
-
-          <p>
-            Sprawdź dostępne oferty i wybierz
-            tę, która najbardziej Ci odpowiada.
-          </p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
+  </div>
+</section>
 
 </main>
 
-
 <footer>
-
   <div class="container footer-inner">
 
     <div class="logo">
@@ -666,175 +604,586 @@
     </small>
 
   </div>
-
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
-  /*
-    NA RAZIE DANE TESTOWE.
+/* =====================================================
+   SUPABASE
+   ===================================================== */
 
-    W NASTĘPNYM KROKU PODŁĄCZYMY
-    TUTAJ TWOJĄ BAZĘ SUPABASE.
-  */
-
-  const demoOffers = [
-
-    {
-      service: "Fryzjer",
-      provider: "Studio Fryzur",
-      city: "Warszawa",
-      price: 80
-    },
-
-    {
-      service: "Hydraulik",
-      provider: "Hydro-Pro",
-      city: "Kraków",
-      price: 120
-    },
-
-    {
-      service: "Mechanik",
-      provider: "Auto Serwis",
-      city: "Wrocław",
-      price: 150
-    }
-
-  ];
+const SUPABASE_URL =
+  "https://fihvmezvilotlwsxghji.supabase.co";
 
 
-  function renderOffers(items) {
+/*
+  WAŻNE:
+  Tutaj wklej swój PUBLISHABLE KEY.
+*/
 
-    const box = document.getElementById("results");
-
-
-    if (!items.length) {
-
-      box.innerHTML = `
-        <div class="empty">
-          Nie znaleziono ofert.
-          Spróbuj zmienić wyszukiwanie.
-        </div>
-      `;
-
-      return;
-    }
+const SUPABASE_KEY =
+  "sb_publishable_S1kWUDbshGl8NNw8-4K6-Q_yAkRg3yz";
 
 
-    box.innerHTML = items.map(o => `
+const db =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
-      <article class="card">
 
-        <span class="tag">
-          ${o.service}
-        </span>
+/* =====================================================
+   ELEMENTY
+   ===================================================== */
 
-        <h3>
-          ${o.provider}
-        </h3>
+const results =
+  document.getElementById("results");
 
-        <div class="provider">
-          Usługodawca
-        </div>
+const city =
+  document.getElementById("city");
 
-        <div class="location">
-          📍 ${o.city}
-        </div>
+const category =
+  document.getElementById("category");
 
-        <div class="price-row">
+const query =
+  document.getElementById("query");
 
-          <div class="price">
+const searchForm =
+  document.getElementById("searchForm");
 
-            <strong>
-              ${Number(o.price).toFixed(0)} zł
-            </strong>
+const searchButton =
+  document.getElementById("searchButton");
 
-            <small>
-              / usługa
-            </small>
+const status =
+  document.getElementById("status");
 
-          </div>
 
-          <button
-            class="mini-btn"
-            type="button"
-          >
-            Sprawdź
-          </button>
+/* =====================================================
+   ZEGAR NA ŻYWO
+   ===================================================== */
 
-        </div>
+function updateClock(){
 
-      </article>
+  const now = new Date();
 
-    `).join("");
+  const text =
+    new Intl.DateTimeFormat(
+      "pl-PL",
+      {
+        timeZone:"Europe/Warsaw",
+        day:"2-digit",
+        month:"2-digit",
+        year:"numeric",
+        hour:"2-digit",
+        minute:"2-digit",
+        second:"2-digit"
+      }
+    ).format(now);
 
+  document.getElementById("clock").textContent =
+    text;
+}
+
+updateClock();
+
+setInterval(updateClock,1000);
+
+
+/* =====================================================
+   BEZPIECZNE WYŚWIETLANIE TEKSTU
+   ===================================================== */
+
+function safe(value){
+
+  if(value === null || value === undefined){
+    return "";
+  }
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+/* =====================================================
+   CENA
+   ===================================================== */
+
+function price(value,currency){
+
+  const number = Number(value);
+
+  if(Number.isNaN(number)){
+    return "—";
+  }
+
+  const symbols = {
+    PLN:"zł",
+    EUR:"€",
+    USD:"$",
+    GBP:"£"
+  };
+
+  const symbol =
+    symbols[String(currency || "PLN").toUpperCase()]
+    || currency
+    || "zł";
+
+  return (
+    number.toFixed(2).replace(".",",")
+    + " "
+    + symbol
+  );
+}
+
+
+/* =====================================================
+   MIASTA
+   ===================================================== */
+
+async function loadCities(){
+
+  const {data,error} =
+    await db
+      .from("miasta")
+      .select("id,nazwa,slug")
+      .order("nazwa",{ascending:true});
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  city.innerHTML =
+    `<option value="">Wszystkie miasta</option>`;
+
+  (data || []).forEach(item => {
+
+    const option =
+      document.createElement("option");
+
+    option.value = item.id;
+    option.textContent = item.nazwa;
+
+    city.appendChild(option);
+  });
+
+  document.getElementById("cityCount").textContent =
+    (data || []).length;
+}
+
+
+/* =====================================================
+   KATEGORIE
+   ===================================================== */
+
+async function loadCategories(){
+
+  const {data,error} =
+    await db
+      .from("kategorie")
+      .select("id,nazwa,slug")
+      .order("nazwa",{ascending:true});
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  category.innerHTML =
+    `<option value="">Wszystkie usługi</option>`;
+
+  (data || []).forEach(item => {
+
+    const option =
+      document.createElement("option");
+
+    option.value = item.id;
+    option.textContent = item.nazwa;
+
+    category.appendChild(option);
+  });
+
+  document.getElementById("categoryCount").textContent =
+    (data || []).length;
+}
+
+
+/* =====================================================
+   LICZBA OFERT
+   ===================================================== */
+
+async function loadOfferCount(){
+
+  const {count,error} =
+    await db
+      .from("ceny")
+      .select("*",{count:"exact",head:true})
+      .eq("aktywna",true);
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  document.getElementById("offerCount").textContent =
+    count || 0;
+}
+
+
+/* =====================================================
+   OFERTY
+   ===================================================== */
+
+async function loadOffers(){
+
+  results.innerHTML =
+    `<div class="empty loading">
+      <span class="spinner"></span>
+      Wczytywanie ofert…
+    </div>`;
+
+  const text =
+    query.value.trim().toLowerCase();
+
+  const cityId =
+    city.value;
+
+  const categoryId =
+    category.value;
+
+
+  let request =
+    db
+      .from("ceny")
+      .select(`
+        id,
+        cena,
+        waluta,
+        cena_typ,
+        aktywna,
+        zweryfikowana,
+        zrodlo,
+        zrodlo_url,
+        usluga:usluga_id(
+          id,
+          nazwa,
+          slug,
+          kategoria:kategoria_id(
+            id,
+            nazwa,
+            slug
+          )
+        ),
+        miasto:miasto_id(
+          id,
+          nazwa,
+          slug
+        )
+      `)
+      .eq("aktywna",true)
+      .order("cena",{ascending:true});
+
+
+  if(cityId){
+    request =
+      request.eq("miasto_id",cityId);
   }
 
 
-  document.getElementById("offerCount").textContent =
-    demoOffers.length;
+  const {data,error} =
+    await request;
 
 
-  document.getElementById("cityCount").textContent =
-    new Set(demoOffers.map(x => x.city)).size;
+  if(error){
+
+    console.error(error);
+
+    results.innerHTML =
+      `<div class="empty">
+        <strong>Nie udało się pobrać ofert.</strong>
+        <br><br>
+        Sprawdź strukturę tabeli oraz połączenie z Supabase.
+      </div>`;
+
+    status.textContent =
+      "Błąd połączenia z bazą danych.";
+
+    status.className =
+      "status error";
+
+    return;
+  }
 
 
-  renderOffers(demoOffers);
+  let offers = data || [];
 
 
-  document.getElementById("searchForm")
-    .addEventListener("submit", function(e) {
+  /* FILTR KATEGORII */
 
-      e.preventDefault();
+  if(categoryId){
 
-
-      const query =
-        document
-          .getElementById("query")
-          .value
-          .toLowerCase()
-          .trim();
-
-
-      const city =
-        document.getElementById("city").value;
-
-
-      const category =
-        document.getElementById("category").value;
-
-
-      const filtered = demoOffers.filter(o =>
-
-        (!query ||
-          `${o.service} ${o.provider}`
-            .toLowerCase()
-            .includes(query)
-        )
-
-        &&
-
-        (!city || o.city === city)
-
-        &&
-
-        (!category || o.service === category)
-
+    offers =
+      offers.filter(item =>
+        item.usluga &&
+        item.usluga.kategoria &&
+        String(item.usluga.kategoria.id) ===
+        String(categoryId)
       );
+  }
 
 
-      renderOffers(filtered);
+  /* FILTR TEKSTOWY */
+
+  if(text){
+
+    offers =
+      offers.filter(item => {
+
+        const service =
+          item.usluga?.nazwa || "";
+
+        const cat =
+          item.usluga?.kategoria?.nazwa || "";
+
+        const town =
+          item.miasto?.nazwa || "";
+
+        const source =
+          item.zrodlo || "";
+
+        return (
+          service +
+          " " +
+          cat +
+          " " +
+          town +
+          " " +
+          source
+        )
+        .toLowerCase()
+        .includes(text);
+      });
+  }
 
 
-      document
-        .getElementById("oferty")
-        .scrollIntoView({
-          behavior: "smooth"
-        });
+  renderOffers(offers);
 
+  status.textContent =
+    `Znaleziono ${offers.length} ofert.`;
+
+  status.className =
+    "status success";
+}
+
+
+/* =====================================================
+   WYŚWIETLANIE OFERT
+   ===================================================== */
+
+function renderOffers(items){
+
+  if(!items.length){
+
+    results.innerHTML =
+      `<div class="empty">
+        Nie znaleziono ofert.
+        <br><br>
+        Spróbuj zmienić wyszukiwanie.
+      </div>`;
+
+    document.getElementById("description").textContent =
+      "Brak ofert dla wybranych filtrów.";
+
+    return;
+  }
+
+
+  document.getElementById("description").textContent =
+    `Znaleziono ${items.length} ofert.`;
+
+
+  results.innerHTML =
+    items.map(item => {
+
+      const service =
+        item.usluga?.nazwa || "Usługa";
+
+      const cat =
+        item.usluga?.kategoria?.nazwa || "Usługa";
+
+      const town =
+        item.miasto?.nazwa || "Polska";
+
+      const source =
+        item.zrodlo || "Usługodawca";
+
+      const verified =
+        item.zweryfikowana;
+
+      const url =
+        item.zrodlo_url;
+
+      let action = "";
+
+      if(url){
+
+        action =
+          `<a
+             href="${safe(url)}"
+             target="_blank"
+             rel="noopener noreferrer"
+           >
+             <button class="mini">
+               Sprawdź
+             </button>
+           </a>`;
+
+      }else{
+
+        action =
+          `<button
+             class="mini"
+             type="button"
+             onclick="alert('Ta oferta nie ma jeszcze podanego linku źródłowego.')"
+           >
+             Sprawdź
+           </button>`;
+      }
+
+
+      return `
+        <article class="card">
+
+          <div>
+
+            <span class="tag">
+              ${safe(cat)}
+            </span>
+
+            ${
+              verified
+              ? `<span class="verified">
+                   ✓ Zweryfikowana
+                 </span>`
+              : ""
+            }
+
+          </div>
+
+          <h3>
+            ${safe(service)}
+          </h3>
+
+          <div class="provider">
+            Źródło: ${safe(source)}
+          </div>
+
+          <div class="location">
+            📍 ${safe(town)}
+          </div>
+
+          <div class="price-row">
+
+            <div class="price">
+
+              <strong>
+                ${price(item.cena,item.waluta)}
+              </strong>
+
+              <br>
+
+              <small>
+                ${safe(item.cena_typ || "za usługę")}
+              </small>
+
+            </div>
+
+            ${action}
+
+          </div>
+
+        </article>
+      `;
+    }).join("");
+}
+
+
+/* =====================================================
+   WYSZUKIWANIE
+   ===================================================== */
+
+searchForm.addEventListener("submit",async event => {
+
+  event.preventDefault();
+
+  searchButton.disabled = true;
+  searchButton.textContent = "Szukam…";
+
+  await loadOffers();
+
+  searchButton.disabled = false;
+  searchButton.textContent = "Szukaj";
+
+  document
+    .getElementById("oferty")
+    .scrollIntoView({
+      behavior:"smooth"
     });
+});
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+async function start(){
+
+  if(
+    SUPABASE_KEY ===
+    "TU_WKLEJ_PUBLISHABLE_KEY"
+  ){
+
+    results.innerHTML =
+      `<div class="empty">
+
+        <strong>Brakuje klucza Supabase.</strong>
+
+        <br><br>
+
+        W kodzie znajdź:
+
+        <br><br>
+
+        <code>
+          TU_WKLEJ_PUBLISHABLE_KEY
+        </code>
+
+        <br><br>
+
+        i wklej tam swój
+        <strong>Publishable key</strong>.
+
+      </div>`;
+
+    return;
+  }
+
+
+  await Promise.all([
+    loadCities(),
+    loadCategories(),
+    loadOfferCount(),
+    loadOffers()
+  ]);
+}
+
+start();
 
 </script>
 
