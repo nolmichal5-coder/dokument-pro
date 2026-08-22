@@ -1,367 +1,565 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>DokumentProsto – generator dokumentów online</title>
-
-<meta name="description"
-content="Prosty generator dokumentów online. Przygotuj wypowiedzenie umowy o pracę, umowę najmu, umowę sprzedaży samochodu, pożyczkę, wezwanie do zapłaty lub pełnomocnictwo.">
-
-<meta name="robots" content="index, follow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DokumentPro — Generator dokumentów</title>
+<meta name="description" content="Prosty generator profesjonalnych dokumentów i umów online.">
 
 <style>
-* {
-    box-sizing: border-box;
+:root{
+  --bg:#f5f5f3;
+  --paper:#fff;
+  --ink:#181818;
+  --muted:#737373;
+  --line:#deded9;
+  --dark:#171717;
+  --dark2:#242424;
+  --accent:#9b7b45;
+  --accent-light:#f3ecdf;
+  --danger:#a33d3d;
+  --shadow:0 18px 55px rgba(0,0,0,.08);
 }
 
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f5f7fb;
-    color: #172033;
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
 }
 
-header {
-    background: white;
-    border-bottom: 1px solid #ddd;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+button,input,select,textarea{font:inherit}
+
+button{cursor:pointer}
+
+.container{
+  width:min(1180px,calc(100% - 36px));
+  margin:auto;
 }
 
-.nav {
-    max-width: 1200px;
-    margin: auto;
-    padding: 18px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* HEADER */
+
+header{
+  background:rgba(255,255,255,.96);
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:20;
+  backdrop-filter:blur(12px);
 }
 
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #3155d9;
-    text-decoration: none;
+.header-inner{
+  min-height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
 }
 
-.menu {
-    display: flex;
-    gap: 25px;
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  text-decoration:none;
+  color:var(--ink);
 }
 
-.menu a {
-    text-decoration: none;
-    color: #333;
-    font-weight: bold;
+.brand-mark{
+  width:38px;
+  height:38px;
+  border:1px solid #c9b99e;
+  display:grid;
+  place-items:center;
+  font-family:Georgia,serif;
+  font-size:18px;
+  color:var(--accent);
+  background:#fff;
 }
 
-.clock {
-    font-size: 13px;
-    color: #666;
+.brand-text strong{
+  display:block;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:20px;
+  letter-spacing:-.3px;
 }
 
-.hero {
-    background: white;
-    padding: 80px 20px;
+.brand-text span{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  margin-top:2px;
 }
 
-.hero-inner {
-    max-width: 1200px;
-    margin: auto;
+.header-note{
+  color:var(--muted);
+  font-size:13px;
 }
 
-.badge {
-    display: inline-block;
-    background: #e9edff;
-    color: #3155d9;
-    padding: 8px 14px;
-    border-radius: 30px;
-    font-weight: bold;
-    font-size: 13px;
+/* HERO */
+
+.hero{
+  padding:70px 0 48px;
 }
 
-h1 {
-    font-size: 55px;
-    max-width: 800px;
-    line-height: 1.05;
-    margin: 20px 0;
+.hero-grid{
+  display:grid;
+  grid-template-columns:1fr 420px;
+  gap:70px;
+  align-items:end;
 }
 
-.hero p {
-    font-size: 19px;
-    color: #667085;
-    max-width: 700px;
+.kicker{
+  display:inline-block;
+  color:var(--accent);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:18px;
 }
 
-.btn {
-    border: none;
-    padding: 13px 20px;
-    border-radius: 10px;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 15px;
+h1{
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:400;
+  font-size:clamp(42px,6vw,72px);
+  line-height:1.02;
+  letter-spacing:-2.5px;
+  margin:0 0 22px;
+  max-width:760px;
 }
 
-.btn-primary {
-    background: #3155d9;
-    color: white;
+.hero p{
+  max-width:650px;
+  color:var(--muted);
+  font-size:17px;
+  line-height:1.7;
+  margin:0;
 }
 
-.btn-primary:hover {
-    background: #2343b5;
+.hero-side{
+  border-left:1px solid var(--line);
+  padding-left:28px;
 }
 
-.btn-secondary {
-    background: #eef1f7;
-    color: #222;
+.hero-side strong{
+  display:block;
+  font-family:Georgia,serif;
+  font-size:24px;
+  font-weight:400;
+  margin-bottom:8px;
 }
 
-section {
-    padding: 65px 20px;
+.hero-side p{
+  font-size:14px;
+  line-height:1.6;
 }
 
-.container {
-    max-width: 1200px;
-    margin: auto;
+/* APP */
+
+.app{
+  padding:10px 0 80px;
 }
 
-.section-title {
-    text-align: center;
-    margin-bottom: 35px;
+.app-grid{
+  display:grid;
+  grid-template-columns:380px 1fr;
+  gap:22px;
+  align-items:start;
 }
 
-.section-title h2 {
-    font-size: 36px;
-    margin-bottom: 10px;
+.panel{
+  background:#fff;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
 }
 
-.section-title p {
-    color: #667085;
+.form-panel{
+  padding:28px;
+  position:sticky;
+  top:98px;
 }
 
-.documents {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+.panel-title{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:25px;
+  font-weight:400;
+  margin:0 0 6px;
 }
 
-.card {
-    background: white;
-    padding: 25px;
-    border-radius: 18px;
-    border: 1px solid #e1e4ea;
-    box-shadow: 0 8px 25px rgba(0,0,0,.05);
+.panel-subtitle{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.55;
+  margin:0 0 25px;
 }
 
-.card-icon {
-    font-size: 30px;
-    margin-bottom: 10px;
+.field{
+  margin-bottom:17px;
 }
 
-.card h3 {
-    margin-bottom: 8px;
+label{
+  display:block;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:7px;
+  color:#3d3d3d;
 }
 
-.card p {
-    color: #667085;
-    min-height: 50px;
+input,select,textarea{
+  width:100%;
+  border:1px solid #d4d4cf;
+  background:#fafaf8;
+  color:var(--ink);
+  border-radius:2px;
+  padding:12px 13px;
+  outline:none;
+  transition:.15s;
 }
 
-.generator {
-    background: white;
-    border-top: 1px solid #ddd;
+input,select{
+  height:46px;
 }
 
-.generator-grid {
-    display: grid;
-    grid-template-columns: 400px 1fr;
-    gap: 25px;
+textarea{
+  min-height:86px;
+  resize:vertical;
 }
 
-.panel {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 18px;
-    padding: 25px;
+input:focus,select:focus,textarea:focus{
+  background:#fff;
+  border-color:#a99068;
+  box-shadow:0 0 0 3px rgba(155,123,69,.10);
 }
 
-.panel h2 {
-    margin-top: 0;
+hr{
+  border:0;
+  border-top:1px solid var(--line);
+  margin:24px 0;
 }
 
-label {
-    display: block;
-    font-weight: bold;
-    font-size: 14px;
-    margin-top: 15px;
-    margin-bottom: 6px;
+.section-label{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:1.7px;
+  color:var(--accent);
+  font-weight:800;
+  margin-bottom:13px;
 }
 
-input,
-textarea,
-select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccd1da;
-    border-radius: 9px;
-    font-size: 15px;
+.btn{
+  border:0;
+  min-height:48px;
+  padding:0 18px;
+  border-radius:2px;
+  font-weight:700;
+  font-size:13px;
+  transition:.15s;
 }
 
-textarea {
-    min-height: 80px;
-    resize: vertical;
+.btn-primary{
+  width:100%;
+  background:var(--dark);
+  color:#fff;
 }
 
-.actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-    flex-wrap: wrap;
+.btn-primary:hover{
+  background:#000;
 }
 
-.preview-title {
-    font-weight: bold;
-    margin-bottom: 12px;
+.btn-secondary{
+  background:#fff;
+  color:var(--ink);
+  border:1px solid #cfcfc9;
 }
 
-.preview {
-    background: white;
-    border: 1px solid #ccc;
-    min-height: 700px;
-    padding: 60px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.08);
-    font-family: Georgia, serif;
+.btn-secondary:hover{
+  background:#f5f5f3;
 }
 
-.document-header {
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-    font-size: 14px;
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin-top:10px;
 }
 
-.document-title {
-    text-align: center;
-    font-size: 23px;
-    font-weight: bold;
-    margin: 70px 0 45px;
+.notice{
+  background:var(--accent-light);
+  border:1px solid #e4d8c4;
+  padding:13px;
+  color:#65543a;
+  font-size:11px;
+  line-height:1.55;
+  margin-top:18px;
 }
 
-.document p {
-    margin-bottom: 20px;
+/* DOCUMENT */
+
+.document-panel{
+  min-width:0;
+  background:#e7e7e3;
+  padding:25px;
 }
 
-.signatures {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    margin-top: 90px;
-    text-align: center;
-    font-size: 13px;
+.document-toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  margin-bottom:18px;
 }
 
-.signature {
-    border-top: 1px solid #333;
-    padding-top: 8px;
+.document-toolbar span{
+  font-size:12px;
+  color:#666;
 }
 
-.info {
-    font-size: 12px;
-    color: #667085;
-    margin-top: 15px;
+.document-paper{
+  background:#fff;
+  min-height:1050px;
+  box-shadow:0 12px 35px rgba(0,0,0,.10);
+  padding:78px 78px 70px;
+  color:#171717;
 }
 
-.faq {
-    max-width: 850px;
-    margin: auto;
+.doc-top{
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+  margin-bottom:65px;
 }
 
-details {
-    background: white;
-    padding: 18px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
+.doc-date{
+  font-size:12px;
+  color:#555;
+  text-align:right;
 }
 
-summary {
-    font-weight: bold;
-    cursor: pointer;
+.doc-title{
+  text-align:center;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:26px;
+  font-weight:700;
+  margin-bottom:10px;
+  text-transform:uppercase;
+  letter-spacing:.4px;
 }
 
-footer {
-    background: #101828;
-    color: white;
-    padding: 35px 20px;
+.doc-subtitle{
+  text-align:center;
+  color:#555;
+  font-size:12px;
+  margin-bottom:42px;
 }
 
-.footer-inner {
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
+.doc-body{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:14px;
+  line-height:1.72;
 }
 
-@media(max-width:900px) {
-
-    h1 {
-        font-size: 42px;
-    }
-
-    .documents {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .generator-grid {
-        grid-template-columns: 1fr;
-    }
+.doc-body p{
+  margin:0 0 18px;
 }
 
-@media(max-width:600px) {
-
-    .menu {
-        display: none;
-    }
-
-    .documents {
-        grid-template-columns: 1fr;
-    }
-
-    h1 {
-        font-size: 38px;
-    }
-
-    .preview {
-        padding: 30px;
-    }
-
-    .document-header {
-        font-size: 12px;
-    }
+.doc-body .center{
+  text-align:center;
 }
 
-@media print {
+.parties{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:45px;
+  margin:0 0 30px;
+}
 
-    body * {
-        visibility: hidden;
-    }
+.party-title{
+  font-family:Arial,sans-serif;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  font-size:10px;
+  font-weight:800;
+  margin-bottom:9px;
+}
 
-    #printArea,
-    #printArea * {
-        visibility: visible;
-    }
+.party{
+  border-bottom:1px solid #ddd;
+  padding-bottom:13px;
+  min-height:70px;
+}
 
-    #printArea {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        box-shadow: none;
-        border: none;
-    }
+.clause{
+  margin:25px 0;
+}
+
+.clause-title{
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.signatures{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+  margin-top:80px;
+}
+
+.signature{
+  text-align:center;
+  font-size:11px;
+  color:#555;
+  padding-top:40px;
+  border-top:1px solid #777;
+}
+
+.doc-footer{
+  margin-top:65px;
+  padding-top:15px;
+  border-top:1px solid #ddd;
+  color:#777;
+  font-size:10px;
+  text-align:center;
+  font-family:Arial,sans-serif;
+}
+
+/* FOOTER */
+
+footer{
+  background:var(--dark);
+  color:#ddd;
+  padding:42px 0;
+}
+
+.footer-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:25px;
+}
+
+.footer-brand{
+  font-family:Georgia,serif;
+  color:#fff;
+  font-size:19px;
+}
+
+.footer-copy{
+  color:#999;
+  font-size:12px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:950px){
+
+  .hero-grid{
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .hero-side{
+    border-left:0;
+    border-top:1px solid var(--line);
+    padding:22px 0 0;
+  }
+
+  .app-grid{
+    grid-template-columns:1fr;
+  }
+
+  .form-panel{
+    position:static;
+  }
+
+}
+
+@media(max-width:650px){
+
+  .container{
+    width:calc(100% - 24px);
+  }
+
+  .hero{
+    padding:48px 0 30px;
+  }
+
+  h1{
+    font-size:44px;
+    letter-spacing:-1.8px;
+  }
+
+  .header-note{
+    display:none;
+  }
+
+  .document-panel{
+    padding:10px;
+  }
+
+  .document-paper{
+    padding:45px 28px;
+  }
+
+  .parties,
+  .signatures{
+    grid-template-columns:1fr;
+    gap:35px;
+  }
+
+  .doc-top{
+    margin-bottom:45px;
+  }
+
+  .footer-inner{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+}
+
+@media print{
+
+  @page{
+    size:A4;
+    margin:0;
+  }
+
+  body{
+    background:#fff;
+  }
+
+  header,
+  .hero,
+  .form-panel,
+  .document-toolbar,
+  footer{
+    display:none !important;
+  }
+
+  .app{
+    padding:0;
+  }
+
+  .app-grid{
+    display:block;
+  }
+
+  .document-panel{
+    padding:0;
+    background:#fff;
+  }
+
+  .document-paper{
+    box-shadow:none;
+    min-height:0;
+    padding:22mm 20mm;
+  }
 }
 </style>
 </head>
@@ -369,1013 +567,1211 @@ footer {
 <body>
 
 <header>
+  <div class="container header-inner">
 
-<div class="nav">
+    <a href="#" class="brand">
+      <div class="brand-mark">D</div>
 
-<a class="logo" href="#">DokumentProsto</a>
+      <div class="brand-text">
+        <strong>DokumentPro</strong>
+        <span>Generator dokumentów</span>
+      </div>
+    </a>
 
-<div class="menu">
-<a href="#dokumenty">Dokumenty</a>
-<a href="#generator">Generator</a>
-<a href="#jak-dziala">Jak to działa?</a>
-<a href="#faq">FAQ</a>
-</div>
+    <div class="header-note">
+      Dokumenty przygotowywane online
+    </div>
 
-<div class="clock" id="clock">
-Ładowanie...
-</div>
-
-</div>
-
+  </div>
 </header>
 
 
+<main>
+
 <section class="hero">
 
-<div class="hero-inner">
+  <div class="container hero-grid">
 
-<span class="badge">
-PROSTE DOKUMENTY ONLINE
-</span>
+    <div>
+      <span class="kicker">Prosto • profesjonalnie • online</span>
 
-<h1>
-Przygotuj dokument bez zbędnego komplikowania.
-</h1>
+      <h1>
+        Dokument gotowy<br>
+        w kilka minut.
+      </h1>
 
-<p>
-Wybierz dokument, uzupełnij najważniejsze informacje
-i od razu zobacz gotowy wzór. Bez konta i bez skomplikowanych formularzy.
-</p>
+      <p>
+        Wybierz rodzaj dokumentu, uzupełnij najważniejsze informacje
+        i otrzymaj przejrzysty dokument gotowy do wydrukowania
+        lub zapisania jako PDF.
+      </p>
+    </div>
 
-<br>
+    <div class="hero-side">
+      <strong>Bez konta. Bez komplikacji.</strong>
 
-<a href="#dokumenty">
-<button class="btn btn-primary">
-Wybierz dokument
-</button>
-</a>
+      <p>
+        Wszystkie dane wpisujesz bezpośrednio na stronie.
+        Data dokumentu jest opcjonalna.
+      </p>
+    </div>
 
-</div>
-
-</section>
-
-
-<section id="dokumenty">
-
-<div class="container">
-
-<div class="section-title">
-
-<h2>
-Popularne dokumenty
-</h2>
-
-<p>
-Wybierz dokument, który chcesz przygotować.
-</p>
-
-</div>
-
-
-<div class="documents">
-
-
-<div class="card">
-
-<div class="card-icon">📄</div>
-
-<h3>
-Wypowiedzenie umowy o pracę
-</h3>
-
-<p>
-Prosty wzór wypowiedzenia umowy o pracę.
-</p>
-
-<button class="btn btn-primary"
-onclick="chooseDocument('work')">
-Utwórz dokument
-</button>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">🏠</div>
-
-<h3>
-Umowa najmu mieszkania
-</h3>
-
-<p>
-Podstawowy wzór umowy najmu mieszkania.
-</p>
-
-<button class="btn btn-primary"
-onclick="chooseDocument('rent')">
-Utwórz dokument
-</button>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">🚗</div>
-
-<h3>
-Umowa kupna-sprzedaży samochodu
-</h3>
-
-<p>
-Prosty wzór umowy sprzedaży pojazdu.
-</p>
-
-<button class="btn btn-primary"
-onclick="chooseDocument('car')">
-Utwórz dokument
-</button>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">💰</div>
-
-<h3>
-Umowa pożyczki
-</h3>
-
-<p>
-Podstawowy wzór umowy pożyczki pieniędzy.
-</p>
-
-<button class="btn btn-primary"
-onclick="chooseDocument('loan')">
-Utwórz dokument
-</button>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">✉️</div>
-
-<h3>
-Wezwanie do zapłaty
-</h3>
-
-<p>
-Przygotuj prosty wzór wezwania do zapłaty.
-</p>
-
-<button class="btn btn-primary"
-onclick="chooseDocument('payment')">
-Utwórz dokument
-</button>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">🖊️</div>
-
-<h3>
-Pełnomocnictwo
-</h3>
-
-<p>
-Przygotuj podstawowy wzór pełnomocnictwa.
-</p>
-
-<button class="btn btn-primary"
-onclick="chooseDocument('power')">
-Utwórz dokument
-</button>
-
-</div>
-
-
-</div>
-
-</div>
+  </div>
 
 </section>
 
 
-<section class="generator" id="generator">
+<section class="app">
 
-<div class="container">
-
-<div class="section-title">
-
-<h2>
-Generator dokumentu
-</h2>
-
-<p>
-Uzupełnij dane po lewej stronie.
-Podgląd dokumentu pojawi się automatycznie.
-</p>
-
-</div>
+  <div class="container app-grid">
 
 
-<div class="generator-grid">
+    <!-- FORMULARZ -->
+
+    <div class="panel form-panel">
+
+      <h2 class="panel-title">Utwórz dokument</h2>
+
+      <p class="panel-subtitle">
+        Uzupełnij dane poniżej. Podgląd dokumentu
+        aktualizuje się automatycznie.
+      </p>
 
 
-<div class="panel">
+      <div class="section-label">
+        Rodzaj dokumentu
+      </div>
 
-<h2 id="formTitle">
-Wypowiedzenie umowy o pracę
-</h2>
+      <div class="field">
 
-<div id="form"></div>
+        <label for="documentType">
+          Dokument
+        </label>
 
-<div class="actions">
+        <select id="documentType">
 
-<button class="btn btn-primary"
-onclick="window.print()">
-🖨 Drukuj / zapisz PDF
-</button>
+          <option value="zlecenie">
+            Umowa zlecenia
+          </option>
 
-<button class="btn btn-secondary"
-onclick="clearForm()">
-Wyczyść
-</button>
+          <option value="dzielo">
+            Umowa o dzieło
+          </option>
 
-</div>
+          <option value="najem">
+            Umowa najmu
+          </option>
 
-<p class="info">
-Wzory mają charakter informacyjny i nie zastępują indywidualnej porady prawnej.
-</p>
+          <option value="sprzedaz">
+            Umowa sprzedaży
+          </option>
 
-</div>
+        </select>
 
-
-<div>
-
-<div class="preview-title">
-PODGLĄD DOKUMENTU
-</div>
-
-<div class="preview" id="printArea"></div>
-
-</div>
+      </div>
 
 
-</div>
+      <div class="section-label">
+        Informacje
+      </div>
 
-</div>
+
+      <div class="field">
+
+        <label for="date">
+          Data dokumentu <span style="font-weight:400;color:#888">(opcjonalnie)</span>
+        </label>
+
+        <input
+          id="date"
+          type="date"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="place">
+          Miejsce zawarcia
+        </label>
+
+        <input
+          id="place"
+          type="text"
+          placeholder="np. Warszawa"
+        >
+
+      </div>
+
+
+      <hr>
+
+
+      <div class="section-label">
+        Strona A
+      </div>
+
+
+      <div class="field">
+
+        <label for="personA">
+          Imię i nazwisko / nazwa
+        </label>
+
+        <input
+          id="personA"
+          type="text"
+          placeholder="np. Jan Kowalski"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="addressA">
+          Adres
+        </label>
+
+        <textarea
+          id="addressA"
+          placeholder="Ulica, numer, kod pocztowy, miejscowość"
+        ></textarea>
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="idA">
+          PESEL / NIP
+        </label>
+
+        <input
+          id="idA"
+          type="text"
+          placeholder="Opcjonalnie"
+        >
+
+      </div>
+
+
+      <hr>
+
+
+      <div class="section-label">
+        Strona B
+      </div>
+
+
+      <div class="field">
+
+        <label for="personB">
+          Imię i nazwisko / nazwa
+        </label>
+
+        <input
+          id="personB"
+          type="text"
+          placeholder="np. Anna Nowak"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="addressB">
+          Adres
+        </label>
+
+        <textarea
+          id="addressB"
+          placeholder="Ulica, numer, kod pocztowy, miejscowość"
+        ></textarea>
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="idB">
+          PESEL / NIP
+        </label>
+
+        <input
+          id="idB"
+          type="text"
+          placeholder="Opcjonalnie"
+        >
+
+      </div>
+
+
+      <hr>
+
+
+      <div class="section-label">
+        Szczegóły
+      </div>
+
+
+      <div class="field">
+
+        <label for="subject">
+          Przedmiot umowy
+        </label>
+
+        <textarea
+          id="subject"
+          placeholder="Opisz usługę, dzieło, przedmiot najmu lub sprzedaży..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="amount">
+          Kwota / wynagrodzenie
+        </label>
+
+        <input
+          id="amount"
+          type="text"
+          placeholder="np. 1500 zł"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label for="additional">
+          Dodatkowe ustalenia
+        </label>
+
+        <textarea
+          id="additional"
+          placeholder="Opcjonalne dodatkowe informacje..."
+        ></textarea>
+
+      </div>
+
+
+      <button
+        class="btn btn-primary"
+        onclick="updateDocument()"
+      >
+        Aktualizuj dokument
+      </button>
+
+
+      <div class="actions">
+
+        <button
+          class="btn btn-secondary"
+          onclick="clearForm()"
+        >
+          Wyczyść
+        </button>
+
+        <button
+          class="btn btn-secondary"
+          onclick="window.print()"
+        >
+          Drukuj / PDF
+        </button>
+
+      </div>
+
+
+      <div class="notice">
+        <strong>Ważne:</strong>
+        generator tworzy wzór dokumentu do uzupełnienia.
+        Przed podpisaniem sprawdź, czy treść odpowiada
+        Twojej konkretnej sytuacji prawnej.
+      </div>
+
+    </div>
+
+
+    <!-- DOKUMENT -->
+
+    <div class="panel document-panel">
+
+      <div class="document-toolbar">
+
+        <span>
+          Podgląd dokumentu
+        </span>
+
+        <button
+          class="btn btn-secondary"
+          onclick="window.print()"
+        >
+          Drukuj / zapisz PDF
+        </button>
+
+      </div>
+
+
+      <div
+        class="document-paper"
+        id="documentPaper"
+      >
+
+        <!-- TREŚĆ WSTAWI JAVASCRIPT -->
+
+      </div>
+
+    </div>
+
+  </div>
 
 </section>
 
-
-<section id="jak-dziala">
-
-<div class="container">
-
-<div class="section-title">
-
-<h2>
-Jak to działa?
-</h2>
-
-<p>
-Trzy proste kroki.
-</p>
-
-</div>
-
-
-<div class="documents">
-
-<div class="card">
-
-<div class="card-icon">1️⃣</div>
-
-<h3>
-Wybierz dokument
-</h3>
-
-<p>
-Wybierz jeden z dostępnych wzorów.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">2️⃣</div>
-
-<h3>
-Uzupełnij dane
-</h3>
-
-<p>
-Wpisz informacje, które mają znaleźć się w dokumencie.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<div class="card-icon">3️⃣</div>
-
-<h3>
-Zapisz dokument
-</h3>
-
-<p>
-Wydrukuj go lub wybierz zapis jako PDF.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
-<section id="faq">
-
-<div class="container">
-
-<div class="section-title">
-
-<h2>
-Najczęściej zadawane pytania
-</h2>
-
-</div>
-
-<div class="faq">
-
-<details>
-<summary>
-Czy trzeba zakładać konto?
-</summary>
-
-<p>
-Nie. Generator działa bez rejestracji.
-</p>
-
-</details>
-
-
-<details>
-<summary>
-Czy potrzebny jest Supabase?
-</summary>
-
-<p>
-Nie. Ta wersja działa całkowicie bez Supabase i bez kluczy API.
-</p>
-
-</details>
-
-
-<details>
-<summary>
-Czy moje dane są wysyłane na serwer?
-</summary>
-
-<p>
-Nie. Dane formularza są przetwarzane bezpośrednio w przeglądarce.
-</p>
-
-</details>
-
-
-<details>
-<summary>
-Czy mogę zapisać dokument jako PDF?
-</summary>
-
-<p>
-Tak. Kliknij „Drukuj / zapisz PDF”, a następnie wybierz opcję zapisania jako PDF.
-</p>
-
-</details>
-
-
-</div>
-
-</div>
-
-</section>
+</main>
 
 
 <footer>
 
-<div class="footer-inner">
+  <div class="container footer-inner">
 
-<div>
-<strong>DokumentProsto</strong>
-<br>
-Prosty generator dokumentów online.
-</div>
+    <div class="footer-brand">
+      DokumentPro
+    </div>
 
-<div>
-© <span id="year"></span> DokumentProsto
-</div>
+    <div class="footer-copy">
+      Generator dokumentów online • © 2026
+    </div>
 
-</div>
+  </div>
 
 </footer>
 
 
 <script>
 
-let currentDocument = "work";
+/* =========================================================
+   DANE
+========================================================= */
+
+const fields = [
+  "documentType",
+  "date",
+  "place",
+  "personA",
+  "addressA",
+  "idA",
+  "personB",
+  "addressB",
+  "idB",
+  "subject",
+  "amount",
+  "additional"
+];
 
 
-const documents = {
+/* =========================================================
+   POMOCNICZE
+========================================================= */
 
-work: {
+function value(id, fallback = "................................"){
 
-title: "Wypowiedzenie umowy o pracę",
+  const el = document.getElementById(id);
 
-fields: [
+  if(!el) return fallback;
 
-["employee","Imię i nazwisko pracownika","text"],
-["employeeAddress","Adres pracownika","textarea"],
-["employer","Nazwa pracodawcy","text"],
-["employerAddress","Adres pracodawcy","textarea"],
-["placeDate","Miejscowość i data","text"],
-["contract","Rodzaj umowy","text"]
+  const v = el.value.trim();
 
-],
-
-generate: function(d) {
-
-return `
-
-<div class="document-header">
-
-<div>
-<strong>${safe(d.employee)}</strong><br>
-${safe(d.employeeAddress)}
-</div>
-
-<div>
-<strong>${safe(d.employer)}</strong><br>
-${safe(d.employerAddress)}
-</div>
-
-</div>
-
-<p style="margin-top:60px">
-${safe(d.placeDate)}
-</p>
-
-<div class="document-title">
-WYPOWIEDZENIE UMOWY O PRACĘ
-</div>
-
-<div class="document">
-
-<p>
-Niniejszym wypowiadam ${safe(d.contract)}
-zawartą pomiędzy mną a pracodawcą.
-</p>
-
-<p>
-Proszę o przyjęcie niniejszego wypowiedzenia
-oraz rozwiązanie stosunku pracy z zachowaniem
-obowiązującego okresu wypowiedzenia.
-</p>
-
-<p>
-Z poważaniem,
-</p>
-
-</div>
-
-<div class="signatures">
-
-<div>
-<div class="signature">
-Podpis pracownika
-</div>
-</div>
-
-<div>
-<div class="signature">
-Potwierdzenie odbioru przez pracodawcę
-</div>
-</div>
-
-</div>
-
-`;
-
+  return v || fallback;
 }
 
-},
 
-
-rent: {
-
-title: "Umowa najmu mieszkania",
-
-fields: [
-
-["landlord","Wynajmujący","text"],
-["tenant","Najemca","text"],
-["address","Adres mieszkania","textarea"],
-["rent","Czynsz miesięczny (zł)","number"],
-["start","Data rozpoczęcia najmu","date"],
-["placeDate","Miejscowość i data","text"]
-
-],
-
-generate: function(d) {
-
-return `
-
-<div class="document-title">
-UMOWA NAJMU MIESZKANIA
-</div>
-
-<div class="document">
-
-<p>
-<b>Wynajmujący:</b> ${safe(d.landlord)}
-</p>
-
-<p>
-<b>Najemca:</b> ${safe(d.tenant)}
-</p>
-
-<p>
-Przedmiotem najmu jest lokal mieszkalny
-położony przy:
-<b>${safe(d.address)}</b>.
-</p>
-
-<p>
-Najem rozpoczyna się dnia
-<b>${safe(d.start)}</b>.
-</p>
-
-<p>
-Miesięczny czynsz wynosi
-<b>${safe(d.rent)} zł</b>.
-</p>
-
-<p>
-Miejscowość i data:
-${safe(d.placeDate)}
-</p>
-
-</div>
-
-<div class="signatures">
-
-<div>
-<div class="signature">
-Podpis wynajmującego
-</div>
-</div>
-
-<div>
-<div class="signature">
-Podpis najemcy
-</div>
-</div>
-
-</div>
-
-`;
-
-}
-
-},
-
-
-car: {
-
-title: "Umowa kupna-sprzedaży samochodu",
-
-fields: [
-
-["seller","Sprzedający","text"],
-["buyer","Kupujący","text"],
-["car","Marka i model samochodu","text"],
-["vin","Numer VIN","text"],
-["registration","Numer rejestracyjny","text"],
-["price","Cena (zł)","number"],
-["placeDate","Miejscowość i data","text"]
-
-],
-
-generate: function(d) {
-
-return `
-
-<div class="document-title">
-UMOWA KUPNA-SPRZEDAŻY SAMOCHODU
-</div>
-
-<div class="document">
-
-<p>
-<b>Sprzedający:</b> ${safe(d.seller)}
-</p>
-
-<p>
-<b>Kupujący:</b> ${safe(d.buyer)}
-</p>
-
-<p>
-Przedmiotem umowy jest samochód
-<b>${safe(d.car)}</b>.
-</p>
-
-<p>
-Numer VIN:
-<b>${safe(d.vin)}</b>
-</p>
-
-<p>
-Numer rejestracyjny:
-<b>${safe(d.registration)}</b>
-</p>
-
-<p>
-Cena sprzedaży:
-<b>${safe(d.price)} zł</b>
-</p>
-
-<p>
-Miejscowość i data:
-${safe(d.placeDate)}
-</p>
-
-</div>
-
-<div class="signatures">
-
-<div>
-<div class="signature">
-Podpis sprzedającego
-</div>
-</div>
-
-<div>
-<div class="signature">
-Podpis kupującego
-</div>
-</div>
-
-</div>
-
-`;
-
-}
-
-},
-
-
-loan: {
-
-title: "Umowa pożyczki",
-
-fields: [
-
-["lender","Pożyczkodawca","text"],
-["borrower","Pożyczkobiorca","text"],
-["amount","Kwota pożyczki (zł)","number"],
-["returnDate","Termin zwrotu","date"],
-["placeDate","Miejscowość i data","text"]
-
-],
-
-generate: function(d) {
-
-return `
-
-<div class="document-title">
-UMOWA POŻYCZKI
-</div>
-
-<div class="document">
-
-<p>
-<b>Pożyczkodawca:</b> ${safe(d.lender)}
-</p>
-
-<p>
-<b>Pożyczkobiorca:</b> ${safe(d.borrower)}
-</p>
-
-<p>
-Pożyczkodawca udziela pożyczki
-w wysokości <b>${safe(d.amount)} zł</b>.
-</p>
-
-<p>
-Pożyczkobiorca zobowiązuje się zwrócić
-pożyczkę do dnia
-<b>${safe(d.returnDate)}</b>.
-</p>
-
-<p>
-Miejscowość i data:
-${safe(d.placeDate)}
-</p>
-
-</div>
-
-<div class="signatures">
-
-<div>
-<div class="signature">
-Podpis pożyczkodawcy
-</div>
-</div>
-
-<div>
-<div class="signature">
-Podpis pożyczkobiorcy
-</div>
-</div>
-
-</div>
-
-`;
-
-}
-
-},
-
-
-payment: {
-
-title: "Wezwanie do zapłaty",
-
-fields: [
-
-["creditor","Wierzyciel","text"],
-["debtor","Dłużnik","text"],
-["amount","Kwota do zapłaty (zł)","number"],
-["reason","Tytuł należności","text"],
-["due","Termin zapłaty","date"],
-["placeDate","Miejscowość i data","text"]
-
-],
-
-generate: function(d) {
-
-return `
-
-<div class="document-title">
-WEZWANIE DO ZAPŁATY
-</div>
-
-<div class="document">
-
-<p>
-<b>Wierzyciel:</b> ${safe(d.creditor)}
-</p>
-
-<p>
-<b>Dłużnik:</b> ${safe(d.debtor)}
-</p>
-
-<p>
-Niniejszym wzywam do zapłaty kwoty
-<b>${safe(d.amount)} zł</b>
-z tytułu:
-<b>${safe(d.reason)}</b>.
-</p>
-
-<p>
-Proszę o uregulowanie należności
-do dnia <b>${safe(d.due)}</b>.
-</p>
-
-<p>
-Miejscowość i data:
-${safe(d.placeDate)}
-</p>
-
-</div>
-
-<div class="signatures">
-
-<div></div>
-
-<div>
-<div class="signature">
-Podpis wierzyciela
-</div>
-</div>
-
-</div>
-
-`;
-
-}
-
-},
-
-
-power: {
-
-title: "Pełnomocnictwo",
-
-fields: [
-
-["principal","Mocodawca","text"],
-["attorney","Pełnomocnik","text"],
-["scope","Zakres pełnomocnictwa","textarea"],
-["placeDate","Miejscowość i data","text"]
-
-],
-
-generate: function(d) {
-
-return `
-
-<div class="document-title">
-PEŁNOMOCNICTWO
-</div>
-
-<div class="document">
-
-<p>
-Ja,
-<b>${safe(d.principal)}</b>,
-udzielam pełnomocnictwa
-<b>${safe(d.attorney)}</b>.
-</p>
-
-<p>
-Zakres pełnomocnictwa:
-</p>
-
-<p>
-<b>${safe(d.scope)}</b>
-</p>
-
-<p>
-Miejscowość i data:
-${safe(d.placeDate)}
-</p>
-
-</div>
-
-<div class="signatures">
-
-<div></div>
-
-<div>
-<div class="signature">
-Podpis mocodawcy
-</div>
-</div>
-
-</div>
-
-`;
-
-}
-
-}
-
-};
-
-
-function safe(value) {
-
-return String(value || "")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+function escapeHTML(text){
+
+  return String(text)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
 
-function chooseDocument(type) {
+function formatDate(date){
 
-currentDocument = type;
+  if(!date) return "";
 
-let doc = documents[type];
+  const parts = date.split("-");
 
-document.getElementById("formTitle").innerText = doc.title;
+  if(parts.length !== 3) return date;
 
-let html = "";
-
-doc.fields.forEach(field => {
-
-let id = field[0];
-let label = field[1];
-let type = field[2];
-
-html += `<label>${label}</label>`;
-
-if(type === "textarea") {
-
-html += `<textarea id="${id}" oninput="updatePreview()"></textarea>`;
-
-} else {
-
-html += `<input id="${id}" type="${type}" oninput="updatePreview()">`;
+  return `${parts[2]}.${parts[1]}.${parts[0]}`;
 
 }
+
+
+function getHeader(){
+
+  const date = document.getElementById("date").value;
+  const place = value("place","");
+
+  if(!date && !place){
+    return "";
+  }
+
+  let text = "";
+
+  if(place){
+    text += escapeHTML(place);
+  }
+
+  if(date){
+
+    if(text) text += ", ";
+
+    text += escapeHTML(formatDate(date));
+
+  }
+
+  return text;
+
+}
+
+
+/* =========================================================
+   DOKUMENTY
+========================================================= */
+
+function createZlecenie(){
+
+  const A = value("personA");
+  const AA = value("addressA");
+  const AI = value("idA");
+  const B = value("personB");
+  const BA = value("addressB");
+  const BI = value("idB");
+  const subject = value("subject");
+  const amount = value("amount");
+  const additional = value("additional");
+
+  return `
+
+    <div class="doc-top">
+
+      <div></div>
+
+      <div class="doc-date">
+        ${getHeader()}
+      </div>
+
+    </div>
+
+
+    <div class="doc-title">
+      Umowa zlecenia
+    </div>
+
+    <div class="doc-subtitle">
+      zawarta pomiędzy stronami
+    </div>
+
+
+    <div class="parties">
+
+      <div class="party">
+
+        <div class="party-title">
+          Zleceniodawca
+        </div>
+
+        <strong>${escapeHTML(A)}</strong><br>
+
+        ${escapeHTML(AA)}<br>
+
+        ${escapeHTML(AI)}
+
+      </div>
+
+
+      <div class="party">
+
+        <div class="party-title">
+          Zleceniobiorca
+        </div>
+
+        <strong>${escapeHTML(B)}</strong><br>
+
+        ${escapeHTML(BA)}<br>
+
+        ${escapeHTML(BI)}
+
+      </div>
+
+    </div>
+
+
+    <div class="doc-body">
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 1. Przedmiot umowy
+        </div>
+
+        <p>
+          Zleceniodawca zleca, a Zleceniobiorca zobowiązuje się
+          do wykonania następujących czynności:
+        </p>
+
+        <p>
+          <strong>${escapeHTML(subject)}</strong>
+        </p>
+
+      </div>
+
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 2. Wynagrodzenie
+        </div>
+
+        <p>
+          Za wykonanie przedmiotu umowy Zleceniobiorcy przysługuje
+          wynagrodzenie w wysokości
+          <strong>${escapeHTML(amount)}</strong>.
+        </p>
+
+      </div>
+
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 3. Wykonanie umowy
+        </div>
+
+        <p>
+          Zleceniobiorca zobowiązuje się wykonywać powierzone
+          czynności z należytą starannością oraz zgodnie
+          z ustaleniami stron.
+        </p>
+
+      </div>
+
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 4. Postanowienia końcowe
+        </div>
+
+        <p>
+          W sprawach nieuregulowanych niniejszą umową zastosowanie
+          mają właściwe przepisy prawa polskiego.
+        </p>
+
+        <p>
+          Dodatkowe ustalenia stron:
+          <strong>${escapeHTML(additional)}</strong>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="signatures">
+
+      <div class="signature">
+        Zleceniodawca
+      </div>
+
+      <div class="signature">
+        Zleceniobiorca
+      </div>
+
+    </div>
+
+
+    <div class="doc-footer">
+      Dokument wygenerowany w serwisie DokumentPro
+    </div>
+
+  `;
+
+}
+
+
+function createDzielo(){
+
+  const A = value("personA");
+  const AA = value("addressA");
+  const AI = value("idA");
+  const B = value("personB");
+  const BA = value("addressB");
+  const BI = value("idB");
+  const subject = value("subject");
+  const amount = value("amount");
+  const additional = value("additional");
+
+  return `
+
+    <div class="doc-top">
+
+      <div></div>
+
+      <div class="doc-date">
+        ${getHeader()}
+      </div>
+
+    </div>
+
+
+    <div class="doc-title">
+      Umowa o dzieło
+    </div>
+
+    <div class="doc-subtitle">
+      zawarta pomiędzy stronami
+    </div>
+
+
+    <div class="parties">
+
+      <div class="party">
+
+        <div class="party-title">
+          Zamawiający
+        </div>
+
+        <strong>${escapeHTML(A)}</strong><br>
+
+        ${escapeHTML(AA)}<br>
+
+        ${escapeHTML(AI)}
+
+      </div>
+
+
+      <div class="party">
+
+        <div class="party-title">
+          Wykonawca
+        </div>
+
+        <strong>${escapeHTML(B)}</strong><br>
+
+        ${escapeHTML(BA)}<br>
+
+        ${escapeHTML(BI)}
+
+      </div>
+
+    </div>
+
+
+    <div class="doc-body">
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 1. Przedmiot umowy
+        </div>
+
+        <p>
+          Zamawiający zamawia, a Wykonawca zobowiązuje się
+          wykonać dzieło polegające na:
+        </p>
+
+        <p>
+          <strong>${escapeHTML(subject)}</strong>
+        </p>
+
+      </div>
+
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 2. Wynagrodzenie
+        </div>
+
+        <p>
+          Za wykonanie dzieła Zamawiający zapłaci Wykonawcy
+          wynagrodzenie w wysokości
+          <strong>${escapeHTML(amount)}</strong>.
+        </p>
+
+      </div>
+
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 3. Odbiór dzieła
+        </div>
+
+        <p>
+          Wykonawca zobowiązuje się przekazać wykonane dzieło
+          Zamawiającemu, który dokona jego odbioru zgodnie
+          z ustaleniami stron.
+        </p>
+
+      </div>
+
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 4. Postanowienia końcowe
+        </div>
+
+        <p>
+          W sprawach nieuregulowanych niniejszą umową zastosowanie
+          mają właściwe przepisy prawa polskiego.
+        </p>
+
+        <p>
+          Dodatkowe ustalenia:
+          <strong>${escapeHTML(additional)}</strong>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="signatures">
+
+      <div class="signature">
+        Zamawiający
+      </div>
+
+      <div class="signature">
+        Wykonawca
+      </div>
+
+    </div>
+
+
+    <div class="doc-footer">
+      Dokument wygenerowany w serwisie DokumentPro
+    </div>
+
+  `;
+
+}
+
+
+function createNajem(){
+
+  const A = value("personA");
+  const AA = value("addressA");
+  const AI = value("idA");
+  const B = value("personB");
+  const BA = value("addressB");
+  const BI = value("idB");
+  const subject = value("subject");
+  const amount = value("amount");
+  const additional = value("additional");
+
+  return `
+
+    <div class="doc-top">
+
+      <div></div>
+
+      <div class="doc-date">
+        ${getHeader()}
+      </div>
+
+    </div>
+
+
+    <div class="doc-title">
+      Umowa najmu
+    </div>
+
+    <div class="doc-subtitle">
+      zawarta pomiędzy stronami
+    </div>
+
+
+    <div class="parties">
+
+      <div class="party">
+
+        <div class="party-title">
+          Wynajmujący
+        </div>
+
+        <strong>${escapeHTML(A)}</strong><br>
+
+        ${escapeHTML(AA)}<br>
+
+        ${escapeHTML(AI)}
+
+      </div>
+
+
+      <div class="party">
+
+        <div class="party-title">
+          Najemca
+        </div>
+
+        <strong>${escapeHTML(B)}</strong><br>
+
+        ${escapeHTML(BA)}<br>
+
+        ${escapeHTML(BI)}
+
+      </div>
+
+    </div>
+
+
+    <div class="doc-body">
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 1. Przedmiot najmu
+        </div>
+
+        <p>
+          Wynajmujący oddaje Najemcy do używania:
+        </p>
+
+        <p>
+          <strong>${escapeHTML(subject)}</strong>
+        </p>
+
+      </div>
+
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 2. Czynsz
+        </div>
+
+        <p>
+          Strony ustalają czynsz w wysokości
+          <strong>${escapeHTML(amount)}</strong>.
+        </p>
+
+      </div>
+
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 3. Obowiązki stron
+        </div>
+
+        <p>
+          Najemca zobowiązuje się korzystać z przedmiotu najmu
+          zgodnie z jego przeznaczeniem oraz z zachowaniem
+          należytej staranności.
+        </p>
+
+      </div>
+
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 4. Postanowienia końcowe
+        </div>
+
+        <p>
+          W sprawach nieuregulowanych niniejszą umową zastosowanie
+          mają właściwe przepisy prawa polskiego.
+        </p>
+
+        <p>
+          Dodatkowe ustalenia:
+          <strong>${escapeHTML(additional)}</strong>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="signatures">
+
+      <div class="signature">
+        Wynajmujący
+      </div>
+
+      <div class="signature">
+        Najemca
+      </div>
+
+    </div>
+
+
+    <div class="doc-footer">
+      Dokument wygenerowany w serwisie DokumentPro
+    </div>
+
+  `;
+
+}
+
+
+function createSprzedaz(){
+
+  const A = value("personA");
+  const AA = value("addressA");
+  const AI = value("idA");
+  const B = value("personB");
+  const BA = value("addressB");
+  const BI = value("idB");
+  const subject = value("subject");
+  const amount = value("amount");
+  const additional = value("additional");
+
+  return `
+
+    <div class="doc-top">
+
+      <div></div>
+
+      <div class="doc-date">
+        ${getHeader()}
+      </div>
+
+    </div>
+
+
+    <div class="doc-title">
+      Umowa sprzedaży
+    </div>
+
+    <div class="doc-subtitle">
+      zawarta pomiędzy stronami
+    </div>
+
+
+    <div class="parties">
+
+      <div class="party">
+
+        <div class="party-title">
+          Sprzedający
+        </div>
+
+        <strong>${escapeHTML(A)}</strong><br>
+
+        ${escapeHTML(AA)}<br>
+
+        ${escapeHTML(AI)}
+
+      </div>
+
+
+      <div class="party">
+
+        <div class="party-title">
+          Kupujący
+        </div>
+
+        <strong>${escapeHTML(B)}</strong><br>
+
+        ${escapeHTML(BA)}<br>
+
+        ${escapeHTML(BI)}
+
+      </div>
+
+    </div>
+
+
+    <div class="doc-body">
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 1. Przedmiot sprzedaży
+        </div>
+
+        <p>
+          Sprzedający sprzedaje, a Kupujący nabywa:
+        </p>
+
+        <p>
+          <strong>${escapeHTML(subject)}</strong>
+        </p>
+
+      </div>
+
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 2. Cena
+        </div>
+
+        <p>
+          Strony ustalają cenę sprzedaży na kwotę
+          <strong>${escapeHTML(amount)}</strong>.
+        </p>
+
+      </div>
+
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 3. Oświadczenia stron
+        </div>
+
+        <p>
+          Sprzedający oświadcza, że przedmiot sprzedaży stanowi
+          jego własność i jest wolny od praw osób trzecich,
+          o ile strony nie postanowią inaczej.
+        </p>
+
+      </div>
+
+
+      <div class="clause">
+
+        <div class="clause-title">
+          § 4. Postanowienia końcowe
+        </div>
+
+        <p>
+          W sprawach nieuregulowanych niniejszą umową zastosowanie
+          mają właściwe przepisy prawa polskiego.
+        </p>
+
+        <p>
+          Dodatkowe ustalenia:
+          <strong>${escapeHTML(additional)}</strong>
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="signatures">
+
+      <div class="signature">
+        Sprzedający
+      </div>
+
+      <div class="signature">
+        Kupujący
+      </div>
+
+    </div>
+
+
+    <div class="doc-footer">
+      Dokument wygenerowany w serwisie DokumentPro
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   AKTUALIZACJA
+========================================================= */
+
+function updateDocument(){
+
+  const type =
+    document.getElementById("documentType").value;
+
+  let html = "";
+
+  if(type === "zlecenie"){
+    html = createZlecenie();
+  }
+
+  if(type === "dzielo"){
+    html = createDzielo();
+  }
+
+  if(type === "najem"){
+    html = createNajem();
+  }
+
+  if(type === "sprzedaz"){
+    html = createSprzedaz();
+  }
+
+  document.getElementById("documentPaper").innerHTML = html;
+
+  document.getElementById("documentPaper")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+}
+
+
+/* =========================================================
+   AUTOMATYCZNA AKTUALIZACJA
+========================================================= */
+
+fields.forEach(id => {
+
+  const el = document.getElementById(id);
+
+  if(!el) return;
+
+  el.addEventListener("input", updateDocument);
+
+  el.addEventListener("change", updateDocument);
 
 });
 
-document.getElementById("form").innerHTML = html;
 
-updatePreview();
+/* =========================================================
+   WYCZYŚĆ
+========================================================= */
 
-document.getElementById("generator")
-.scrollIntoView({behavior:"smooth"});
+function clearForm(){
 
-}
+  fields.forEach(id => {
 
+    const el = document.getElementById(id);
 
-function getData() {
+    if(!el) return;
 
-let data = {};
+    if(el.tagName === "SELECT"){
+      el.selectedIndex = 0;
+    }else{
+      el.value = "";
+    }
 
-documents[currentDocument].fields.forEach(field => {
+  });
 
-let element = document.getElementById(field[0]);
-
-data[field[0]] = element ? element.value : "";
-
-});
-
-return data;
-
-}
-
-
-function updatePreview() {
-
-let data = getData();
-
-document.getElementById("printArea").innerHTML =
-documents[currentDocument].generate(data);
+  updateDocument();
 
 }
 
 
-function clearForm() {
+/* =========================================================
+   START
+========================================================= */
 
-documents[currentDocument].fields.forEach(field => {
-
-let element = document.getElementById(field[0]);
-
-if(element) {
-element.value = "";
-}
-
-});
-
-updatePreview();
-
-}
-
-
-function updateClock() {
-
-let now = new Date();
-
-let date =
-now.toLocaleDateString("pl-PL");
-
-let time =
-now.toLocaleTimeString("pl-PL");
-
-document.getElementById("clock").innerText =
-date + " • " + time;
-
-document.getElementById("year").innerText =
-now.getFullYear();
-
-}
-
-
-chooseDocument("work");
-
-updateClock();
-
-setInterval(updateClock,1000);
+updateDocument();
 
 </script>
 
