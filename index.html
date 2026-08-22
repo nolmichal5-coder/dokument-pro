@@ -1,480 +1,367 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DokumentProsto — generatory dokumentów online</title>
+<title>DokumentProsto – generator dokumentów online</title>
 
 <meta name="description"
-content="Twórz dokumenty online szybko i wygodnie. Wypełnij formularz, zobacz podgląd i wydrukuj gotowy dokument.">
+content="Prosty generator dokumentów online. Przygotuj wypowiedzenie umowy o pracę, umowę najmu, umowę sprzedaży samochodu, pożyczkę, wezwanie do zapłaty lub pełnomocnictwo.">
 
-<meta name="robots" content="index,follow">
+<meta name="robots" content="index, follow">
 
 <style>
-:root{
-  --bg:#f6f7f9;
-  --card:#fff;
-  --text:#17191c;
-  --muted:#667085;
-  --line:#e4e7ec;
-  --dark:#17191c;
-  --accent:#2457d6;
-  --accent-dark:#1d46ad;
-  --soft:#eef3ff;
-  --radius:14px;
-  --shadow:0 10px 30px rgba(16,24,40,.07);
+* {
+    box-sizing: border-box;
 }
 
-*{box-sizing:border-box}
-
-html{scroll-behavior:smooth}
-
-body{
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f7fb;
+    color: #172033;
 }
 
-.container{
-  width:min(1120px,calc(100% - 32px));
-  margin:auto;
+header {
+    background: white;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-header{
-  background:#fff;
-  border-bottom:1px solid var(--line);
-  position:sticky;
-  top:0;
-  z-index:20;
+.nav {
+    max-width: 1200px;
+    margin: auto;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.nav{
-  height:70px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3155d9;
+    text-decoration: none;
 }
 
-.logo{
-  font-size:21px;
-  font-weight:800;
-  letter-spacing:-.6px;
+.menu {
+    display: flex;
+    gap: 25px;
 }
 
-.logo span{color:var(--accent)}
-
-.nav-links{
-  display:flex;
-  gap:26px;
-  font-size:14px;
-  color:#475467;
-  font-weight:600;
+.menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
 }
 
-.nav-links a:hover{color:var(--accent)}
-
-.hero{
-  background:#fff;
-  padding:76px 0 72px;
-  border-bottom:1px solid var(--line);
+.clock {
+    font-size: 13px;
+    color: #666;
 }
 
-.hero-content{
-  max-width:820px;
+.hero {
+    background: white;
+    padding: 80px 20px;
 }
 
-.eyebrow{
-  display:inline-block;
-  padding:7px 11px;
-  background:var(--soft);
-  color:var(--accent);
-  border-radius:999px;
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:.2px;
+.hero-inner {
+    max-width: 1200px;
+    margin: auto;
 }
 
-h1{
-  font-size:clamp(38px,6vw,62px);
-  line-height:1.02;
-  letter-spacing:-2.7px;
-  margin:18px 0;
+.badge {
+    display: inline-block;
+    background: #e9edff;
+    color: #3155d9;
+    padding: 8px 14px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 13px;
 }
 
-.hero p{
-  color:var(--muted);
-  font-size:18px;
-  line-height:1.65;
-  max-width:690px;
+h1 {
+    font-size: 55px;
+    max-width: 800px;
+    line-height: 1.05;
+    margin: 20px 0;
 }
 
-.section{
-  padding:62px 0;
+.hero p {
+    font-size: 19px;
+    color: #667085;
+    max-width: 700px;
 }
 
-.section-title{
-  margin-bottom:28px;
+.btn {
+    border: none;
+    padding: 13px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
 }
 
-.section-title h2{
-  margin:0 0 8px;
-  font-size:30px;
-  letter-spacing:-1px;
+.btn-primary {
+    background: #3155d9;
+    color: white;
 }
 
-.section-title p{
-  margin:0;
-  color:var(--muted);
+.btn-primary:hover {
+    background: #2343b5;
 }
 
-.documents{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
+.btn-secondary {
+    background: #eef1f7;
+    color: #222;
 }
 
-.document-card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:24px;
-  box-shadow:0 4px 14px rgba(16,24,40,.03);
-  transition:.2s;
+section {
+    padding: 65px 20px;
 }
 
-.document-card:hover{
-  transform:translateY(-2px);
-  box-shadow:var(--shadow);
+.container {
+    max-width: 1200px;
+    margin: auto;
 }
 
-.icon{
-  width:42px;
-  height:42px;
-  display:grid;
-  place-items:center;
-  border-radius:10px;
-  background:var(--soft);
-  color:var(--accent);
-  font-size:20px;
+.section-title {
+    text-align: center;
+    margin-bottom: 35px;
 }
 
-.document-card h3{
-  margin:17px 0 8px;
-  font-size:18px;
+.section-title h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
 }
 
-.document-card p{
-  margin:0 0 20px;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.55;
+.section-title p {
+    color: #667085;
 }
 
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  height:44px;
-  padding:0 17px;
-  border:0;
-  border-radius:9px;
-  background:var(--accent);
-  color:#fff;
-  font-weight:700;
-  cursor:pointer;
+.documents {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
-.btn:hover{background:var(--accent-dark)}
-
-.btn.secondary{
-  background:#f2f4f7;
-  color:#344054;
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    border: 1px solid #e1e4ea;
+    box-shadow: 0 8px 25px rgba(0,0,0,.05);
 }
 
-.btn.secondary:hover{
-  background:#e4e7ec;
+.card-icon {
+    font-size: 30px;
+    margin-bottom: 10px;
 }
 
-.generator{
-  background:#fff;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
+.card h3 {
+    margin-bottom: 8px;
 }
 
-.generator-grid{
-  display:grid;
-  grid-template-columns:430px 1fr;
-  gap:30px;
-  align-items:start;
+.card p {
+    color: #667085;
+    min-height: 50px;
 }
 
-.panel{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:24px;
+.generator {
+    background: white;
+    border-top: 1px solid #ddd;
 }
 
-.panel h2{
-  margin:0 0 8px;
-  font-size:25px;
+.generator-grid {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 25px;
 }
 
-.panel-description{
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.55;
-  margin-bottom:22px;
+.panel {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 18px;
+    padding: 25px;
 }
 
-label{
-  display:block;
-  margin:15px 0 7px;
-  font-size:13px;
-  font-weight:700;
-  color:#344054;
+.panel h2 {
+    margin-top: 0;
 }
 
-input,textarea,select{
-  width:100%;
-  border:1px solid #d0d5dd;
-  border-radius:9px;
-  padding:12px 13px;
-  font:inherit;
-  color:var(--text);
-  background:#fff;
-  outline:none;
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 15px;
+    margin-bottom: 6px;
 }
 
-input:focus,textarea:focus,select:focus{
-  border-color:#98b4f4;
-  box-shadow:0 0 0 3px var(--soft);
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccd1da;
+    border-radius: 9px;
+    font-size: 15px;
 }
 
-textarea{
-  min-height:90px;
-  resize:vertical;
+textarea {
+    min-height: 80px;
+    resize: vertical;
 }
 
-.form-actions{
-  display:flex;
-  gap:10px;
-  margin-top:22px;
-  flex-wrap:wrap;
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
 }
 
-.preview-wrap{
-  position:sticky;
-  top:95px;
+.preview-title {
+    font-weight: bold;
+    margin-bottom: 12px;
 }
 
-.preview-label{
-  margin-bottom:10px;
-  font-size:13px;
-  color:var(--muted);
-  font-weight:700;
+.preview {
+    background: white;
+    border: 1px solid #ccc;
+    min-height: 700px;
+    padding: 60px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    font-family: Georgia, serif;
 }
 
-.paper{
-  min-height:760px;
-  background:#fff;
-  padding:70px 65px;
-  box-shadow:var(--shadow);
-  border:1px solid #ddd;
-  color:#111;
-  font-family:"Times New Roman",serif;
-  font-size:14px;
-  line-height:1.6;
+.document-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    font-size: 14px;
 }
 
-.paper-top{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:70px;
+.document-title {
+    text-align: center;
+    font-size: 23px;
+    font-weight: bold;
+    margin: 70px 0 45px;
 }
 
-.paper-title{
-  text-align:center;
-  font-size:20px;
-  font-weight:bold;
-  margin:35px 0;
+.document p {
+    margin-bottom: 20px;
 }
 
-.paper p{
-  margin:0 0 16px;
+.signatures {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 90px;
+    text-align: center;
+    font-size: 13px;
 }
 
-.signature{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:70px;
-  margin-top:80px;
-  text-align:center;
+.signature {
+    border-top: 1px solid #333;
+    padding-top: 8px;
 }
 
-.signature div{
-  border-top:1px solid #333;
-  padding-top:7px;
-  font-size:12px;
+.info {
+    font-size: 12px;
+    color: #667085;
+    margin-top: 15px;
 }
 
-.how{
-  padding:62px 0;
+.faq {
+    max-width: 850px;
+    margin: auto;
 }
 
-.steps{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
+details {
+    background: white;
+    padding: 18px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
 }
 
-.step{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:24px;
+summary {
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.number{
-  width:34px;
-  height:34px;
-  display:grid;
-  place-items:center;
-  background:var(--soft);
-  color:var(--accent);
-  border-radius:50%;
-  font-weight:800;
-  margin-bottom:15px;
+footer {
+    background: #101828;
+    color: white;
+    padding: 35px 20px;
 }
 
-.step h3{
-  margin:0 0 8px;
-  font-size:17px;
+.footer-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
 }
 
-.step p{
-  margin:0;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.55;
+@media(max-width:900px) {
+
+    h1 {
+        font-size: 42px;
+    }
+
+    .documents {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .generator-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
-.faq{
-  background:#fff;
-  border-top:1px solid var(--line);
+@media(max-width:600px) {
+
+    .menu {
+        display: none;
+    }
+
+    .documents {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 38px;
+    }
+
+    .preview {
+        padding: 30px;
+    }
+
+    .document-header {
+        font-size: 12px;
+    }
 }
 
-details{
-  background:#fff;
-  border-bottom:1px solid var(--line);
-  padding:18px 0;
-}
+@media print {
 
-summary{
-  cursor:pointer;
-  font-weight:700;
-}
+    body * {
+        visibility: hidden;
+    }
 
-details p{
-  color:var(--muted);
-  line-height:1.6;
-  max-width:800px;
-}
+    #printArea,
+    #printArea * {
+        visibility: visible;
+    }
 
-footer{
-  background:#101828;
-  color:#d0d5dd;
-  padding:35px 0;
-}
-
-.footer-inner{
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-}
-
-footer small{color:#98a2b3}
-
-@media(max-width:900px){
-
-  .documents,
-  .steps{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .generator-grid{
-    grid-template-columns:1fr;
-  }
-
-  .preview-wrap{
-    position:static;
-  }
-
-  .nav-links{display:none}
-}
-
-@media(max-width:600px){
-
-  .documents,
-  .steps{
-    grid-template-columns:1fr;
-  }
-
-  .hero{
-    padding:52px 0;
-  }
-
-  .paper{
-    padding:35px 25px;
-    min-height:600px;
-  }
-
-  .paper-top{
-    margin-bottom:35px;
-  }
-
-  .signature{
-    gap:25px;
-  }
-
-  .footer-inner{
-    flex-direction:column;
-  }
-}
-
-@media print{
-
-  header,
-  .hero,
-  .documents-section,
-  .how,
-  .faq,
-  footer,
-  .generator-form,
-  .preview-label{
-    display:none!important;
-  }
-
-  body{
-    background:#fff;
-  }
-
-  .generator{
-    border:0;
-  }
-
-  .generator-grid{
-    display:block;
-  }
-
-  .paper{
-    box-shadow:none;
-    border:0;
-    margin:0;
-    min-height:auto;
-  }
+    #printArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+    }
 }
 </style>
 </head>
@@ -482,571 +369,1013 @@ footer small{color:#98a2b3}
 <body>
 
 <header>
-  <div class="container nav">
 
-    <a href="#" class="logo">
-      Dokument<span>Prosto</span>
-    </a>
+<div class="nav">
 
-    <nav class="nav-links">
-      <a href="#dokumenty">Dokumenty</a>
-      <a href="#generator">Generator</a>
-      <a href="#jak-dziala">Jak to działa?</a>
-      <a href="#faq">FAQ</a>
-    </nav>
+<a class="logo" href="#">DokumentProsto</a>
 
-  </div>
+<div class="menu">
+<a href="#dokumenty">Dokumenty</a>
+<a href="#generator">Generator</a>
+<a href="#jak-dziala">Jak to działa?</a>
+<a href="#faq">FAQ</a>
+</div>
+
+<div class="clock" id="clock">
+Ładowanie...
+</div>
+
+</div>
+
 </header>
 
-<main>
 
 <section class="hero">
 
-  <div class="container">
+<div class="hero-inner">
 
-    <div class="hero-content">
+<span class="badge">
+PROSTE DOKUMENTY ONLINE
+</span>
 
-      <span class="eyebrow">
-        PROSTE DOKUMENTY ONLINE
-      </span>
+<h1>
+Przygotuj dokument bez zbędnego komplikowania.
+</h1>
 
-      <h1>
-        Przygotuj dokument
-        bez zbędnego komplikowania.
-      </h1>
+<p>
+Wybierz dokument, uzupełnij najważniejsze informacje
+i od razu zobacz gotowy wzór. Bez konta i bez skomplikowanych formularzy.
+</p>
 
-      <p>
-        Wybierz dokument, uzupełnij najważniejsze informacje
-        i zobacz gotowy wzór. Bez zakładania konta i bez
-        skomplikowanych formularzy.
-      </p>
+<br>
 
-      <a class="btn" href="#dokumenty">
-        Wybierz dokument
-      </a>
+<a href="#dokumenty">
+<button class="btn btn-primary">
+Wybierz dokument
+</button>
+</a>
 
-    </div>
-
-  </div>
+</div>
 
 </section>
 
-<section class="section documents-section" id="dokumenty">
 
-  <div class="container">
+<section id="dokumenty">
 
-    <div class="section-title">
-      <h2>Popularne dokumenty</h2>
-      <p>
-        Wybierz dokument, który chcesz przygotować.
-      </p>
-    </div>
+<div class="container">
 
-    <div class="documents">
+<div class="section-title">
 
-      <article class="document-card">
+<h2>
+Popularne dokumenty
+</h2>
 
-        <div class="icon">📄</div>
+<p>
+Wybierz dokument, który chcesz przygotować.
+</p>
 
-        <h3>Wypowiedzenie umowy o pracę</h3>
+</div>
 
-        <p>
-          Przygotuj prosty wzór wypowiedzenia
-          umowy o pracę.
-        </p>
 
-        <a href="#generator" class="btn">
-          Utwórz dokument
-        </a>
+<div class="documents">
 
-      </article>
 
-      <article class="document-card">
+<div class="card">
 
-        <div class="icon">🏠</div>
+<div class="card-icon">📄</div>
 
-        <h3>Umowa najmu mieszkania</h3>
+<h3>
+Wypowiedzenie umowy o pracę
+</h3>
 
-        <p>
-          Przygotuj podstawowy wzór umowy najmu.
-        </p>
+<p>
+Prosty wzór wypowiedzenia umowy o pracę.
+</p>
 
-        <button
-          class="btn secondary"
-          onclick="showComingSoon()">
-          Wkrótce
-        </button>
+<button class="btn btn-primary"
+onclick="chooseDocument('work')">
+Utwórz dokument
+</button>
 
-      </article>
+</div>
 
-      <article class="document-card">
 
-        <div class="icon">🚗</div>
+<div class="card">
 
-        <h3>Umowa kupna-sprzedaży samochodu</h3>
+<div class="card-icon">🏠</div>
 
-        <p>
-          Podstawowy wzór umowy sprzedaży pojazdu.
-        </p>
+<h3>
+Umowa najmu mieszkania
+</h3>
 
-        <button
-          class="btn secondary"
-          onclick="showComingSoon()">
-          Wkrótce
-        </button>
+<p>
+Podstawowy wzór umowy najmu mieszkania.
+</p>
 
-      </article>
+<button class="btn btn-primary"
+onclick="chooseDocument('rent')">
+Utwórz dokument
+</button>
 
-      <article class="document-card">
+</div>
 
-        <div class="icon">💰</div>
 
-        <h3>Umowa pożyczki</h3>
+<div class="card">
 
-        <p>
-          Prosty wzór umowy pożyczki pieniędzy.
-        </p>
+<div class="card-icon">🚗</div>
 
-        <button
-          class="btn secondary"
-          onclick="showComingSoon()">
-          Wkrótce
-        </button>
+<h3>
+Umowa kupna-sprzedaży samochodu
+</h3>
 
-      </article>
+<p>
+Prosty wzór umowy sprzedaży pojazdu.
+</p>
 
-      <article class="document-card">
+<button class="btn btn-primary"
+onclick="chooseDocument('car')">
+Utwórz dokument
+</button>
 
-        <div class="icon">✉️</div>
+</div>
 
-        <h3>Wezwanie do zapłaty</h3>
 
-        <p>
-          Przygotuj podstawowy wzór wezwania do zapłaty.
-        </p>
+<div class="card">
 
-        <button
-          class="btn secondary"
-          onclick="showComingSoon()">
-          Wkrótce
-        </button>
+<div class="card-icon">💰</div>
 
-      </article>
+<h3>
+Umowa pożyczki
+</h3>
 
-      <article class="document-card">
+<p>
+Podstawowy wzór umowy pożyczki pieniędzy.
+</p>
 
-        <div class="icon">📝</div>
+<button class="btn btn-primary"
+onclick="chooseDocument('loan')">
+Utwórz dokument
+</button>
 
-        <h3>Pełnomocnictwo</h3>
+</div>
 
-        <p>
-          Przygotuj prosty wzór pełnomocnictwa.
-        </p>
 
-        <button
-          class="btn secondary"
-          onclick="showComingSoon()">
-          Wkrótce
-        </button>
+<div class="card">
 
-      </article>
+<div class="card-icon">✉️</div>
 
-    </div>
+<h3>
+Wezwanie do zapłaty
+</h3>
 
-  </div>
+<p>
+Przygotuj prosty wzór wezwania do zapłaty.
+</p>
+
+<button class="btn btn-primary"
+onclick="chooseDocument('payment')">
+Utwórz dokument
+</button>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">🖊️</div>
+
+<h3>
+Pełnomocnictwo
+</h3>
+
+<p>
+Przygotuj podstawowy wzór pełnomocnictwa.
+</p>
+
+<button class="btn btn-primary"
+onclick="chooseDocument('power')">
+Utwórz dokument
+</button>
+
+</div>
+
+
+</div>
+
+</div>
 
 </section>
+
 
 <section class="generator" id="generator">
 
-  <div class="container">
+<div class="container">
 
-    <div class="section-title" style="padding-top:58px">
+<div class="section-title">
 
-      <h2>Generator wypowiedzenia umowy o pracę</h2>
+<h2>
+Generator dokumentu
+</h2>
 
-      <p>
-        Uzupełnij dane po lewej stronie. Podgląd dokumentu
-        pojawi się automatycznie.
-      </p>
+<p>
+Uzupełnij dane po lewej stronie.
+Podgląd dokumentu pojawi się automatycznie.
+</p>
 
-    </div>
+</div>
 
-    <div class="generator-grid">
 
-      <div class="panel generator-form">
+<div class="generator-grid">
 
-        <h2>Dane dokumentu</h2>
 
-        <div class="panel-description">
-          Wpisz informacje dokładnie tak, jak mają pojawić
-          się w dokumencie.
-        </div>
+<div class="panel">
 
-        <label for="employee">
-          Imię i nazwisko pracownika
-        </label>
+<h2 id="formTitle">
+Wypowiedzenie umowy o pracę
+</h2>
 
-        <input
-          id="employee"
-          placeholder="np. Jan Kowalski"
-        >
+<div id="form"></div>
 
-        <label for="employeeAddress">
-          Adres pracownika
-        </label>
+<div class="actions">
 
-        <textarea
-          id="employeeAddress"
-          placeholder="np. ul. Przykładowa 10, 00-001 Warszawa"
-        ></textarea>
+<button class="btn btn-primary"
+onclick="window.print()">
+🖨 Drukuj / zapisz PDF
+</button>
 
-        <label for="employer">
-          Nazwa pracodawcy
-        </label>
+<button class="btn btn-secondary"
+onclick="clearForm()">
+Wyczyść
+</button>
 
-        <input
-          id="employer"
-          placeholder="np. ABC Sp. z o.o."
-        >
+</div>
 
-        <label for="employerAddress">
-          Adres pracodawcy
-        </label>
+<p class="info">
+Wzory mają charakter informacyjny i nie zastępują indywidualnej porady prawnej.
+</p>
 
-        <textarea
-          id="employerAddress"
-          placeholder="np. ul. Firmowa 20, 00-002 Warszawa"
-        ></textarea>
+</div>
 
-        <label for="cityDate">
-          Miejscowość i data
-        </label>
 
-        <input
-          id="cityDate"
-          placeholder="np. Warszawa, 22 sierpnia 2026 r."
-        >
+<div>
 
-        <label for="contract">
-          Rodzaj umowy
-        </label>
+<div class="preview-title">
+PODGLĄD DOKUMENTU
+</div>
 
-        <select id="contract">
-          <option>umowy o pracę</option>
-          <option>umowy o pracę na czas określony</option>
-          <option>umowy o pracę na czas nieokreślony</option>
-        </select>
+<div class="preview" id="printArea"></div>
 
-        <div class="form-actions">
+</div>
 
-          <button
-            class="btn"
-            onclick="updateDocument()"
-          >
-            Aktualizuj podgląd
-          </button>
 
-          <button
-            class="btn secondary"
-            onclick="window.print()"
-          >
-            Drukuj / PDF
-          </button>
+</div>
 
-        </div>
-
-      </div>
-
-      <div class="preview-wrap">
-
-        <div class="preview-label">
-          PODGLĄD DOKUMENTU
-        </div>
-
-        <div class="paper" id="paper">
-
-          <div class="paper-top">
-
-            <div>
-              <strong id="previewEmployee">
-                Imię i nazwisko
-              </strong>
-              <br>
-              <span id="previewEmployeeAddress">
-                Adres pracownika
-              </span>
-            </div>
-
-            <div>
-              <strong id="previewEmployer">
-                Pracodawca
-              </strong>
-              <br>
-              <span id="previewEmployerAddress">
-                Adres pracodawcy
-              </span>
-            </div>
-
-          </div>
-
-          <div id="previewDate">
-            Miejscowość, data
-          </div>
-
-          <div class="paper-title">
-            WYPOWIEDZENIE UMOWY O PRACĘ
-          </div>
-
-          <p>
-            Niniejszym wypowiadam
-            <span id="previewContract">
-              umowę o pracę
-            </span>
-            zawartą pomiędzy mną a pracodawcą.
-          </p>
-
-          <p>
-            Proszę o przyjęcie niniejszego wypowiedzenia
-            oraz rozwiązanie stosunku pracy z zachowaniem
-            obowiązującego okresu wypowiedzenia.
-          </p>
-
-          <p>
-            Z poważaniem,
-          </p>
-
-          <div class="signature">
-
-            <div>
-              podpis pracownika
-            </div>
-
-            <div>
-              potwierdzenie odbioru przez pracodawcę
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
+</div>
 
 </section>
 
-<section class="how" id="jak-dziala">
 
-  <div class="container">
+<section id="jak-dziala">
 
-    <div class="section-title">
-      <h2>Jak to działa?</h2>
-      <p>
-        Przygotowanie dokumentu zajmuje tylko kilka chwil.
-      </p>
-    </div>
+<div class="container">
 
-    <div class="steps">
+<div class="section-title">
 
-      <article class="step">
-        <div class="number">1</div>
-        <h3>Wybierz dokument</h3>
-        <p>
-          Wybierz wzór, którego potrzebujesz.
-        </p>
-      </article>
+<h2>
+Jak to działa?
+</h2>
 
-      <article class="step">
-        <div class="number">2</div>
-        <h3>Uzupełnij dane</h3>
-        <p>
-          Wpisz informacje wymagane w dokumencie.
-        </p>
-      </article>
+<p>
+Trzy proste kroki.
+</p>
 
-      <article class="step">
-        <div class="number">3</div>
-        <h3>Wydrukuj lub zapisz PDF</h3>
-        <p>
-          Sprawdź podgląd i użyj funkcji drukowania
-          przeglądarki, aby zapisać dokument jako PDF.
-        </p>
-      </article>
+</div>
 
-    </div>
 
-  </div>
+<div class="documents">
 
-</section>
+<div class="card">
 
-<section class="faq" id="faq">
+<div class="card-icon">1️⃣</div>
 
-  <div class="container">
+<h3>
+Wybierz dokument
+</h3>
 
-    <div class="section-title" style="padding-top:10px">
-      <h2>Najczęściej zadawane pytania</h2>
-    </div>
+<p>
+Wybierz jeden z dostępnych wzorów.
+</p>
 
-    <details>
-      <summary>
-        Czy muszę zakładać konto?
-      </summary>
+</div>
 
-      <p>
-        Nie. Ta wersja generatora działa bez rejestracji.
-      </p>
-    </details>
 
-    <details>
-      <summary>
-        Czy mogę zapisać dokument jako PDF?
-      </summary>
+<div class="card">
 
-      <p>
-        Tak. Kliknij „Drukuj / PDF”, a następnie w oknie
-        drukowania wybierz opcję zapisu jako PDF.
-      </p>
-    </details>
+<div class="card-icon">2️⃣</div>
 
-    <details>
-      <summary>
-        Czy generator stanowi poradę prawną?
-      </summary>
+<h3>
+Uzupełnij dane
+</h3>
 
-      <p>
-        Nie. Generator udostępnia wzory dokumentów.
-        Przed wykorzystaniem dokumentu należy upewnić się,
-        że jego treść odpowiada konkretnej sytuacji.
-        W przypadku wątpliwości warto skonsultować się
-        z profesjonalnym prawnikiem.
-      </p>
-    </details>
+<p>
+Wpisz informacje, które mają znaleźć się w dokumencie.
+</p>
 
-  </div>
+</div>
+
+
+<div class="card">
+
+<div class="card-icon">3️⃣</div>
+
+<h3>
+Zapisz dokument
+</h3>
+
+<p>
+Wydrukuj go lub wybierz zapis jako PDF.
+</p>
+
+</div>
+
+</div>
+
+</div>
 
 </section>
 
-</main>
+
+<section id="faq">
+
+<div class="container">
+
+<div class="section-title">
+
+<h2>
+Najczęściej zadawane pytania
+</h2>
+
+</div>
+
+<div class="faq">
+
+<details>
+<summary>
+Czy trzeba zakładać konto?
+</summary>
+
+<p>
+Nie. Generator działa bez rejestracji.
+</p>
+
+</details>
+
+
+<details>
+<summary>
+Czy potrzebny jest Supabase?
+</summary>
+
+<p>
+Nie. Ta wersja działa całkowicie bez Supabase i bez kluczy API.
+</p>
+
+</details>
+
+
+<details>
+<summary>
+Czy moje dane są wysyłane na serwer?
+</summary>
+
+<p>
+Nie. Dane formularza są przetwarzane bezpośrednio w przeglądarce.
+</p>
+
+</details>
+
+
+<details>
+<summary>
+Czy mogę zapisać dokument jako PDF?
+</summary>
+
+<p>
+Tak. Kliknij „Drukuj / zapisz PDF”, a następnie wybierz opcję zapisania jako PDF.
+</p>
+
+</details>
+
+
+</div>
+
+</div>
+
+</section>
+
 
 <footer>
 
-  <div class="container footer-inner">
+<div class="footer-inner">
 
-    <div class="logo">
-      Dokument<span>Prosto</span>
-    </div>
+<div>
+<strong>DokumentProsto</strong>
+<br>
+Prosty generator dokumentów online.
+</div>
 
-    <small>
-      © 2026 DokumentProsto
-    </small>
+<div>
+© <span id="year"></span> DokumentProsto
+</div>
 
-  </div>
+</div>
 
 </footer>
 
+
 <script>
 
-function value(id, fallback){
+let currentDocument = "work";
 
-  const element =
-    document.getElementById(id);
 
-  const text =
-    element.value.trim();
+const documents = {
 
-  return text || fallback;
+work: {
+
+title: "Wypowiedzenie umowy o pracę",
+
+fields: [
+
+["employee","Imię i nazwisko pracownika","text"],
+["employeeAddress","Adres pracownika","textarea"],
+["employer","Nazwa pracodawcy","text"],
+["employerAddress","Adres pracodawcy","textarea"],
+["placeDate","Miejscowość i data","text"],
+["contract","Rodzaj umowy","text"]
+
+],
+
+generate: function(d) {
+
+return `
+
+<div class="document-header">
+
+<div>
+<strong>${safe(d.employee)}</strong><br>
+${safe(d.employeeAddress)}
+</div>
+
+<div>
+<strong>${safe(d.employer)}</strong><br>
+${safe(d.employerAddress)}
+</div>
+
+</div>
+
+<p style="margin-top:60px">
+${safe(d.placeDate)}
+</p>
+
+<div class="document-title">
+WYPOWIEDZENIE UMOWY O PRACĘ
+</div>
+
+<div class="document">
+
+<p>
+Niniejszym wypowiadam ${safe(d.contract)}
+zawartą pomiędzy mną a pracodawcą.
+</p>
+
+<p>
+Proszę o przyjęcie niniejszego wypowiedzenia
+oraz rozwiązanie stosunku pracy z zachowaniem
+obowiązującego okresu wypowiedzenia.
+</p>
+
+<p>
+Z poważaniem,
+</p>
+
+</div>
+
+<div class="signatures">
+
+<div>
+<div class="signature">
+Podpis pracownika
+</div>
+</div>
+
+<div>
+<div class="signature">
+Potwierdzenie odbioru przez pracodawcę
+</div>
+</div>
+
+</div>
+
+`;
+
+}
+
+},
+
+
+rent: {
+
+title: "Umowa najmu mieszkania",
+
+fields: [
+
+["landlord","Wynajmujący","text"],
+["tenant","Najemca","text"],
+["address","Adres mieszkania","textarea"],
+["rent","Czynsz miesięczny (zł)","number"],
+["start","Data rozpoczęcia najmu","date"],
+["placeDate","Miejscowość i data","text"]
+
+],
+
+generate: function(d) {
+
+return `
+
+<div class="document-title">
+UMOWA NAJMU MIESZKANIA
+</div>
+
+<div class="document">
+
+<p>
+<b>Wynajmujący:</b> ${safe(d.landlord)}
+</p>
+
+<p>
+<b>Najemca:</b> ${safe(d.tenant)}
+</p>
+
+<p>
+Przedmiotem najmu jest lokal mieszkalny
+położony przy:
+<b>${safe(d.address)}</b>.
+</p>
+
+<p>
+Najem rozpoczyna się dnia
+<b>${safe(d.start)}</b>.
+</p>
+
+<p>
+Miesięczny czynsz wynosi
+<b>${safe(d.rent)} zł</b>.
+</p>
+
+<p>
+Miejscowość i data:
+${safe(d.placeDate)}
+</p>
+
+</div>
+
+<div class="signatures">
+
+<div>
+<div class="signature">
+Podpis wynajmującego
+</div>
+</div>
+
+<div>
+<div class="signature">
+Podpis najemcy
+</div>
+</div>
+
+</div>
+
+`;
+
+}
+
+},
+
+
+car: {
+
+title: "Umowa kupna-sprzedaży samochodu",
+
+fields: [
+
+["seller","Sprzedający","text"],
+["buyer","Kupujący","text"],
+["car","Marka i model samochodu","text"],
+["vin","Numer VIN","text"],
+["registration","Numer rejestracyjny","text"],
+["price","Cena (zł)","number"],
+["placeDate","Miejscowość i data","text"]
+
+],
+
+generate: function(d) {
+
+return `
+
+<div class="document-title">
+UMOWA KUPNA-SPRZEDAŻY SAMOCHODU
+</div>
+
+<div class="document">
+
+<p>
+<b>Sprzedający:</b> ${safe(d.seller)}
+</p>
+
+<p>
+<b>Kupujący:</b> ${safe(d.buyer)}
+</p>
+
+<p>
+Przedmiotem umowy jest samochód
+<b>${safe(d.car)}</b>.
+</p>
+
+<p>
+Numer VIN:
+<b>${safe(d.vin)}</b>
+</p>
+
+<p>
+Numer rejestracyjny:
+<b>${safe(d.registration)}</b>
+</p>
+
+<p>
+Cena sprzedaży:
+<b>${safe(d.price)} zł</b>
+</p>
+
+<p>
+Miejscowość i data:
+${safe(d.placeDate)}
+</p>
+
+</div>
+
+<div class="signatures">
+
+<div>
+<div class="signature">
+Podpis sprzedającego
+</div>
+</div>
+
+<div>
+<div class="signature">
+Podpis kupującego
+</div>
+</div>
+
+</div>
+
+`;
+
+}
+
+},
+
+
+loan: {
+
+title: "Umowa pożyczki",
+
+fields: [
+
+["lender","Pożyczkodawca","text"],
+["borrower","Pożyczkobiorca","text"],
+["amount","Kwota pożyczki (zł)","number"],
+["returnDate","Termin zwrotu","date"],
+["placeDate","Miejscowość i data","text"]
+
+],
+
+generate: function(d) {
+
+return `
+
+<div class="document-title">
+UMOWA POŻYCZKI
+</div>
+
+<div class="document">
+
+<p>
+<b>Pożyczkodawca:</b> ${safe(d.lender)}
+</p>
+
+<p>
+<b>Pożyczkobiorca:</b> ${safe(d.borrower)}
+</p>
+
+<p>
+Pożyczkodawca udziela pożyczki
+w wysokości <b>${safe(d.amount)} zł</b>.
+</p>
+
+<p>
+Pożyczkobiorca zobowiązuje się zwrócić
+pożyczkę do dnia
+<b>${safe(d.returnDate)}</b>.
+</p>
+
+<p>
+Miejscowość i data:
+${safe(d.placeDate)}
+</p>
+
+</div>
+
+<div class="signatures">
+
+<div>
+<div class="signature">
+Podpis pożyczkodawcy
+</div>
+</div>
+
+<div>
+<div class="signature">
+Podpis pożyczkobiorcy
+</div>
+</div>
+
+</div>
+
+`;
+
+}
+
+},
+
+
+payment: {
+
+title: "Wezwanie do zapłaty",
+
+fields: [
+
+["creditor","Wierzyciel","text"],
+["debtor","Dłużnik","text"],
+["amount","Kwota do zapłaty (zł)","number"],
+["reason","Tytuł należności","text"],
+["due","Termin zapłaty","date"],
+["placeDate","Miejscowość i data","text"]
+
+],
+
+generate: function(d) {
+
+return `
+
+<div class="document-title">
+WEZWANIE DO ZAPŁATY
+</div>
+
+<div class="document">
+
+<p>
+<b>Wierzyciel:</b> ${safe(d.creditor)}
+</p>
+
+<p>
+<b>Dłużnik:</b> ${safe(d.debtor)}
+</p>
+
+<p>
+Niniejszym wzywam do zapłaty kwoty
+<b>${safe(d.amount)} zł</b>
+z tytułu:
+<b>${safe(d.reason)}</b>.
+</p>
+
+<p>
+Proszę o uregulowanie należności
+do dnia <b>${safe(d.due)}</b>.
+</p>
+
+<p>
+Miejscowość i data:
+${safe(d.placeDate)}
+</p>
+
+</div>
+
+<div class="signatures">
+
+<div></div>
+
+<div>
+<div class="signature">
+Podpis wierzyciela
+</div>
+</div>
+
+</div>
+
+`;
+
+}
+
+},
+
+
+power: {
+
+title: "Pełnomocnictwo",
+
+fields: [
+
+["principal","Mocodawca","text"],
+["attorney","Pełnomocnik","text"],
+["scope","Zakres pełnomocnictwa","textarea"],
+["placeDate","Miejscowość i data","text"]
+
+],
+
+generate: function(d) {
+
+return `
+
+<div class="document-title">
+PEŁNOMOCNICTWO
+</div>
+
+<div class="document">
+
+<p>
+Ja,
+<b>${safe(d.principal)}</b>,
+udzielam pełnomocnictwa
+<b>${safe(d.attorney)}</b>.
+</p>
+
+<p>
+Zakres pełnomocnictwa:
+</p>
+
+<p>
+<b>${safe(d.scope)}</b>
+</p>
+
+<p>
+Miejscowość i data:
+${safe(d.placeDate)}
+</p>
+
+</div>
+
+<div class="signatures">
+
+<div></div>
+
+<div>
+<div class="signature">
+Podpis mocodawcy
+</div>
+</div>
+
+</div>
+
+`;
+
+}
+
+}
+
+};
+
+
+function safe(value) {
+
+return String(value || "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
 }
 
 
-function updateDocument(){
+function chooseDocument(type) {
 
-  document.getElementById(
-    "previewEmployee"
-  ).textContent =
-    value(
-      "employee",
-      "Imię i nazwisko"
-    );
+currentDocument = type;
 
+let doc = documents[type];
 
-  document.getElementById(
-    "previewEmployeeAddress"
-  ).textContent =
-    value(
-      "employeeAddress",
-      "Adres pracownika"
-    );
+document.getElementById("formTitle").innerText = doc.title;
 
+let html = "";
 
-  document.getElementById(
-    "previewEmployer"
-  ).textContent =
-    value(
-      "employer",
-      "Pracodawca"
-    );
+doc.fields.forEach(field => {
 
+let id = field[0];
+let label = field[1];
+let type = field[2];
 
-  document.getElementById(
-    "previewEmployerAddress"
-  ).textContent =
-    value(
-      "employerAddress",
-      "Adres pracodawcy"
-    );
+html += `<label>${label}</label>`;
 
+if(type === "textarea") {
 
-  document.getElementById(
-    "previewDate"
-  ).textContent =
-    value(
-      "cityDate",
-      "Miejscowość, data"
-    );
+html += `<textarea id="${id}" oninput="updatePreview()"></textarea>`;
 
+} else {
 
-  document.getElementById(
-    "previewContract"
-  ).textContent =
-    document.getElementById(
-      "contract"
-    ).value;
+html += `<input id="${id}" type="${type}" oninput="updatePreview()">`;
+
+}
+
+});
+
+document.getElementById("form").innerHTML = html;
+
+updatePreview();
+
+document.getElementById("generator")
+.scrollIntoView({behavior:"smooth"});
 
 }
 
 
-function showComingSoon(){
+function getData() {
 
-  alert(
-    "Ten generator będzie dostępny wkrótce."
-  );
+let data = {};
+
+documents[currentDocument].fields.forEach(field => {
+
+let element = document.getElementById(field[0]);
+
+data[field[0]] = element ? element.value : "";
+
+});
+
+return data;
 
 }
 
 
-document
-  .querySelectorAll(
-    "#employee,#employeeAddress,#employer,#employerAddress,#cityDate,#contract"
-  )
-  .forEach(element => {
+function updatePreview() {
 
-    element.addEventListener(
-      "input",
-      updateDocument
-    );
+let data = getData();
 
-    element.addEventListener(
-      "change",
-      updateDocument
-    );
+document.getElementById("printArea").innerHTML =
+documents[currentDocument].generate(data);
 
-  });
+}
 
 
-updateDocument();
+function clearForm() {
+
+documents[currentDocument].fields.forEach(field => {
+
+let element = document.getElementById(field[0]);
+
+if(element) {
+element.value = "";
+}
+
+});
+
+updatePreview();
+
+}
+
+
+function updateClock() {
+
+let now = new Date();
+
+let date =
+now.toLocaleDateString("pl-PL");
+
+let time =
+now.toLocaleTimeString("pl-PL");
+
+document.getElementById("clock").innerText =
+date + " • " + time;
+
+document.getElementById("year").innerText =
+now.getFullYear();
+
+}
+
+
+chooseDocument("work");
+
+updateClock();
+
+setInterval(updateClock,1000);
 
 </script>
 
