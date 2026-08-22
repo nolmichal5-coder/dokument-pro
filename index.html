@@ -2,417 +2,326 @@
 <html lang="pl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>PorównajCeny — porównuj ceny usług</title>
+<title>DokumentProsto — generatory dokumentów online</title>
 
-<meta
-  name="description"
-  content="Porównuj ceny usług w Polsce. Znajdź usługę, miasto i najlepszą ofertę."
->
+<meta name="description"
+content="Twórz dokumenty online szybko i wygodnie. Wypełnij formularz, zobacz podgląd i wydrukuj gotowy dokument.">
+
+<meta name="robots" content="index,follow">
 
 <style>
 :root{
-  --bg:#f5f7fa;
-  --white:#fff;
-  --text:#172033;
+  --bg:#f6f7f9;
+  --card:#fff;
+  --text:#17191c;
   --muted:#667085;
   --line:#e4e7ec;
-  --blue:#155eef;
-  --blue-dark:#104bbd;
-  --blue-light:#eef4ff;
-  --green:#12b76a;
-  --red:#b42318;
-  --shadow:0 12px 35px rgba(16,24,40,.08);
-  --radius:16px;
+  --dark:#17191c;
+  --accent:#2457d6;
+  --accent-dark:#1d46ad;
+  --soft:#eef3ff;
+  --radius:14px;
+  --shadow:0 10px 30px rgba(16,24,40,.07);
 }
 
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
   background:var(--bg);
   color:var(--text);
-  font-family:Inter,Arial,Helvetica,sans-serif;
-}
-
-a{
-  color:inherit;
-  text-decoration:none;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 .container{
-  width:min(1160px,calc(100% - 40px));
+  width:min(1120px,calc(100% - 32px));
   margin:auto;
 }
 
-/* =========================
-   HEADER
-========================= */
-
 header{
-  min-height:74px;
   background:#fff;
   border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
+  position:sticky;
+  top:0;
+  z-index:20;
 }
 
 .nav{
+  height:70px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:20px;
 }
 
 .logo{
-  font-size:22px;
+  font-size:21px;
   font-weight:800;
-  letter-spacing:-.7px;
+  letter-spacing:-.6px;
 }
 
-.logo span{
-  color:var(--blue);
-}
+.logo span{color:var(--accent)}
 
-.links{
+.nav-links{
   display:flex;
-  gap:30px;
-  color:#475467;
+  gap:26px;
   font-size:14px;
+  color:#475467;
   font-weight:600;
 }
 
-.links a:hover{
-  color:var(--blue);
-}
-
-/* =========================
-   ZEGAR
-========================= */
-
-.clock{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  padding:8px 12px;
-  background:#f8fafc;
-  border:1px solid var(--line);
-  border-radius:10px;
-  color:#475467;
-  font-size:12px;
-  font-weight:700;
-  white-space:nowrap;
-}
-
-.dot{
-  width:8px;
-  height:8px;
-  background:var(--green);
-  border-radius:50%;
-  box-shadow:0 0 0 4px rgba(18,183,106,.12);
-}
-
-/* =========================
-   HERO
-========================= */
+.nav-links a:hover{color:var(--accent)}
 
 .hero{
   background:#fff;
-  padding:75px 0 65px;
+  padding:76px 0 72px;
   border-bottom:1px solid var(--line);
 }
 
-.hero-inner{
-  max-width:1000px;
+.hero-content{
+  max-width:820px;
 }
 
-.badge{
-  display:inline-flex;
-  padding:8px 12px;
-  background:var(--blue-light);
-  color:var(--blue);
-  border:1px solid #d9e6ff;
+.eyebrow{
+  display:inline-block;
+  padding:7px 11px;
+  background:var(--soft);
+  color:var(--accent);
   border-radius:999px;
   font-size:12px;
   font-weight:800;
+  letter-spacing:.2px;
 }
 
 h1{
-  font-size:clamp(38px,5vw,62px);
-  line-height:1.03;
-  letter-spacing:-2.5px;
-  margin:20px 0 18px;
+  font-size:clamp(38px,6vw,62px);
+  line-height:1.02;
+  letter-spacing:-2.7px;
+  margin:18px 0;
 }
 
-.lead{
-  max-width:700px;
-  margin:0 0 32px;
+.hero p{
   color:var(--muted);
   font-size:18px;
   line-height:1.65;
+  max-width:690px;
 }
 
-/* =========================
-   SEARCH
-========================= */
-
-.search-box{
-  display:grid;
-  grid-template-columns:1.4fr 1fr 1fr auto;
-  gap:8px;
-  max-width:1000px;
-  padding:8px;
-  background:#fff;
-  border:1px solid #d8dee8;
-  border-radius:18px;
-  box-shadow:var(--shadow);
+.section{
+  padding:62px 0;
 }
 
-input,
-select{
-  width:100%;
-  height:54px;
-  padding:0 15px;
-  background:#f7f9fc;
-  color:var(--text);
-  border:1px solid transparent;
-  border-radius:12px;
-  outline:none;
-  font-size:14px;
+.section-title{
+  margin-bottom:28px;
 }
 
-input:focus,
-select:focus{
-  background:#fff;
-  border-color:#a9c7ff;
-  box-shadow:0 0 0 3px var(--blue-light);
+.section-title h2{
+  margin:0 0 8px;
+  font-size:30px;
+  letter-spacing:-1px;
 }
 
-button{
-  height:54px;
-  padding:0 24px;
-  background:var(--blue);
-  color:#fff;
-  border:0;
-  border-radius:12px;
-  font-size:14px;
-  font-weight:750;
-  cursor:pointer;
-}
-
-button:hover{
-  background:var(--blue-dark);
-}
-
-button:disabled{
-  opacity:.6;
-  cursor:wait;
-}
-
-.trust{
-  display:flex;
-  flex-wrap:wrap;
-  gap:28px;
-  margin-top:22px;
-  color:var(--muted);
-  font-size:13px;
-}
-
-.trust b{
-  color:#344054;
-}
-
-.status{
-  min-height:20px;
-  margin-top:14px;
-  font-size:13px;
-}
-
-.status.error{
-  color:var(--red);
-}
-
-.status.success{
-  color:#027a48;
-}
-
-/* =========================
-   SEKCJE
-========================= */
-
-section{
-  padding:58px 0;
-}
-
-/* =========================
-   STATYSTYKI
-========================= */
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-}
-
-.stat{
-  padding:24px;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-}
-
-.stat strong{
-  display:block;
-  margin-bottom:7px;
-  font-size:28px;
-}
-
-.stat span{
-  color:var(--muted);
-  font-size:14px;
-}
-
-/* =========================
-   OFERTY
-========================= */
-
-.section-head{
-  margin-bottom:24px;
-}
-
-h2{
+.section-title p{
   margin:0;
-  font-size:28px;
-  letter-spacing:-.8px;
-}
-
-.section-head p{
-  margin:7px 0 0;
   color:var(--muted);
 }
 
-.results{
+.documents{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:18px;
 }
 
-.card{
-  padding:22px;
+.document-card{
   background:#fff;
   border:1px solid var(--line);
   border-radius:var(--radius);
-  box-shadow:0 4px 15px rgba(16,24,40,.03);
+  padding:24px;
+  box-shadow:0 4px 14px rgba(16,24,40,.03);
+  transition:.2s;
 }
 
-.tag{
-  display:inline-block;
-  padding:6px 9px;
-  background:#f2f4f7;
-  color:#475467;
-  border-radius:7px;
-  font-size:11px;
-  font-weight:700;
+.document-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
 }
 
-.verified{
-  display:inline-block;
-  margin-left:5px;
-  padding:6px 9px;
-  background:#ecfdf3;
-  color:#027a48;
-  border-radius:7px;
-  font-size:11px;
-  font-weight:700;
+.icon{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  background:var(--soft);
+  color:var(--accent);
+  font-size:20px;
 }
 
-.card h3{
-  margin:16px 0 7px;
+.document-card h3{
+  margin:17px 0 8px;
   font-size:18px;
 }
 
-.provider{
+.document-card p{
+  margin:0 0 20px;
   color:var(--muted);
-  font-size:13px;
+  font-size:14px;
+  line-height:1.55;
 }
 
-.location{
-  margin-top:15px;
-  color:#475467;
-  font-size:13px;
-}
-
-.price-row{
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-  gap:10px;
-  margin-top:18px;
-  padding-top:17px;
-  border-top:1px solid var(--line);
-}
-
-.price strong{
-  font-size:25px;
-}
-
-.price small{
-  color:var(--muted);
-}
-
-.mini{
-  height:40px;
-  padding:0 14px;
-  font-size:13px;
-}
-
-.empty{
-  grid-column:1/-1;
-  padding:45px;
-  background:#fff;
-  border:1px dashed #cfd6e2;
-  border-radius:var(--radius);
-  text-align:center;
-  color:var(--muted);
-}
-
-.loading{
-  display:flex;
-  justify-content:center;
+.btn{
+  display:inline-flex;
   align-items:center;
-  gap:10px;
+  justify-content:center;
+  height:44px;
+  padding:0 17px;
+  border:0;
+  border-radius:9px;
+  background:var(--accent);
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
 }
 
-.spinner{
-  width:18px;
-  height:18px;
-  border:3px solid #dbe5ff;
-  border-top-color:var(--blue);
-  border-radius:50%;
-  animation:spin .8s linear infinite;
+.btn:hover{background:var(--accent-dark)}
+
+.btn.secondary{
+  background:#f2f4f7;
+  color:#344054;
 }
 
-@keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
+.btn.secondary:hover{
+  background:#e4e7ec;
 }
 
-/* =========================
-   JAK DZIAŁA
-========================= */
-
-.how{
+.generator{
   background:#fff;
   border-top:1px solid var(--line);
   border-bottom:1px solid var(--line);
+}
+
+.generator-grid{
+  display:grid;
+  grid-template-columns:430px 1fr;
+  gap:30px;
+  align-items:start;
+}
+
+.panel{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:24px;
+}
+
+.panel h2{
+  margin:0 0 8px;
+  font-size:25px;
+}
+
+.panel-description{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.55;
+  margin-bottom:22px;
+}
+
+label{
+  display:block;
+  margin:15px 0 7px;
+  font-size:13px;
+  font-weight:700;
+  color:#344054;
+}
+
+input,textarea,select{
+  width:100%;
+  border:1px solid #d0d5dd;
+  border-radius:9px;
+  padding:12px 13px;
+  font:inherit;
+  color:var(--text);
+  background:#fff;
+  outline:none;
+}
+
+input:focus,textarea:focus,select:focus{
+  border-color:#98b4f4;
+  box-shadow:0 0 0 3px var(--soft);
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+.form-actions{
+  display:flex;
+  gap:10px;
+  margin-top:22px;
+  flex-wrap:wrap;
+}
+
+.preview-wrap{
+  position:sticky;
+  top:95px;
+}
+
+.preview-label{
+  margin-bottom:10px;
+  font-size:13px;
+  color:var(--muted);
+  font-weight:700;
+}
+
+.paper{
+  min-height:760px;
+  background:#fff;
+  padding:70px 65px;
+  box-shadow:var(--shadow);
+  border:1px solid #ddd;
+  color:#111;
+  font-family:"Times New Roman",serif;
+  font-size:14px;
+  line-height:1.6;
+}
+
+.paper-top{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:70px;
+}
+
+.paper-title{
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
+  margin:35px 0;
+}
+
+.paper p{
+  margin:0 0 16px;
+}
+
+.signature{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+  margin-top:80px;
+  text-align:center;
+}
+
+.signature div{
+  border-top:1px solid #333;
+  padding-top:7px;
+  font-size:12px;
+}
+
+.how{
+  padding:62px 0;
 }
 
 .steps{
@@ -422,9 +331,10 @@ h2{
 }
 
 .step{
-  padding:24px;
+  background:#fff;
   border:1px solid var(--line);
   border-radius:var(--radius);
+  padding:24px;
 }
 
 .number{
@@ -432,11 +342,11 @@ h2{
   height:34px;
   display:grid;
   place-items:center;
-  margin-bottom:17px;
-  background:var(--blue-light);
-  color:var(--blue);
+  background:var(--soft);
+  color:var(--accent);
   border-radius:50%;
   font-weight:800;
+  margin-bottom:15px;
 }
 
 .step h3{
@@ -451,88 +361,119 @@ h2{
   line-height:1.55;
 }
 
-/* =========================
-   FOOTER
-========================= */
+.faq{
+  background:#fff;
+  border-top:1px solid var(--line);
+}
+
+details{
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  padding:18px 0;
+}
+
+summary{
+  cursor:pointer;
+  font-weight:700;
+}
+
+details p{
+  color:var(--muted);
+  line-height:1.6;
+  max-width:800px;
+}
 
 footer{
-  padding:35px 0;
   background:#101828;
   color:#d0d5dd;
+  padding:35px 0;
 }
 
 .footer-inner{
   display:flex;
-  align-items:center;
   justify-content:space-between;
   gap:20px;
 }
 
-footer .logo{
-  color:#fff;
-}
-
-footer .logo span{
-  color:#84adff;
-}
-
-footer small{
-  color:#98a2b3;
-}
-
-/* =========================
-   MOBILE
-========================= */
+footer small{color:#98a2b3}
 
 @media(max-width:900px){
 
-  .search-box{
+  .documents,
+  .steps{
     grid-template-columns:1fr 1fr;
   }
 
-  .results,
-  .stats,
-  .steps{
+  .generator-grid{
     grid-template-columns:1fr;
   }
 
-  .links{
-    display:none;
+  .preview-wrap{
+    position:static;
   }
+
+  .nav-links{display:none}
 }
 
 @media(max-width:600px){
 
-  .container{
-    width:calc(100% - 24px);
-  }
-
-  .nav{
-    flex-wrap:wrap;
-  }
-
-  .clock{
-    order:3;
-    width:100%;
-    justify-content:center;
-  }
-
-  .hero{
-    padding:48px 0;
-  }
-
-  .search-box{
+  .documents,
+  .steps{
     grid-template-columns:1fr;
   }
 
-  .trust{
-    flex-direction:column;
-    gap:12px;
+  .hero{
+    padding:52px 0;
+  }
+
+  .paper{
+    padding:35px 25px;
+    min-height:600px;
+  }
+
+  .paper-top{
+    margin-bottom:35px;
+  }
+
+  .signature{
+    gap:25px;
   }
 
   .footer-inner{
     flex-direction:column;
-    align-items:flex-start;
+  }
+}
+
+@media print{
+
+  header,
+  .hero,
+  .documents-section,
+  .how,
+  .faq,
+  footer,
+  .generator-form,
+  .preview-label{
+    display:none!important;
+  }
+
+  body{
+    background:#fff;
+  }
+
+  .generator{
+    border:0;
+  }
+
+  .generator-grid{
+    display:block;
+  }
+
+  .paper{
+    box-shadow:none;
+    border:0;
+    margin:0;
+    min-height:auto;
   }
 }
 </style>
@@ -543,75 +484,172 @@ footer small{
 <header>
   <div class="container nav">
 
-    <a class="logo" href="#">
-      Porównaj<span>Ceny</span>
+    <a href="#" class="logo">
+      Dokument<span>Prosto</span>
     </a>
 
-    <nav class="links">
-      <a href="#wyszukiwarka">Wyszukiwarka</a>
-      <a href="#oferty">Oferty</a>
+    <nav class="nav-links">
+      <a href="#dokumenty">Dokumenty</a>
+      <a href="#generator">Generator</a>
       <a href="#jak-dziala">Jak to działa?</a>
+      <a href="#faq">FAQ</a>
     </nav>
-
-    <div class="clock">
-      <span class="dot"></span>
-      <span id="clock">Ładowanie czasu...</span>
-    </div>
 
   </div>
 </header>
 
 <main>
 
-<section class="hero" id="wyszukiwarka">
+<section class="hero">
 
   <div class="container">
 
-    <div class="hero-inner">
+    <div class="hero-content">
 
-      <div class="badge">
-        PROSTE PORÓWNANIE • LEPSZY WYBÓR
-      </div>
+      <span class="eyebrow">
+        PROSTE DOKUMENTY ONLINE
+      </span>
 
       <h1>
-        Znajdź dobrą usługę<br>
-        za dobrą cenę.
+        Przygotuj dokument
+        bez zbędnego komplikowania.
       </h1>
 
-      <p class="lead">
-        Porównuj oferty usługodawców w Polsce.
-        Wybierz usługę, miasto i sprawdź dostępne ceny.
+      <p>
+        Wybierz dokument, uzupełnij najważniejsze informacje
+        i zobacz gotowy wzór. Bez zakładania konta i bez
+        skomplikowanych formularzy.
       </p>
 
-      <form class="search-box" id="searchForm">
+      <a class="btn" href="#dokumenty">
+        Wybierz dokument
+      </a>
 
-        <input
-          id="query"
-          type="search"
-          placeholder="Czego szukasz? np. fryzjer, hydraulik…"
-        >
+    </div>
 
-        <select id="city">
-          <option value="">Wszystkie miasta</option>
-        </select>
+  </div>
 
-        <select id="category">
-          <option value="">Wszystkie usługi</option>
-        </select>
+</section>
 
-        <button id="searchButton" type="submit">
-          Szukaj
+<section class="section documents-section" id="dokumenty">
+
+  <div class="container">
+
+    <div class="section-title">
+      <h2>Popularne dokumenty</h2>
+      <p>
+        Wybierz dokument, który chcesz przygotować.
+      </p>
+    </div>
+
+    <div class="documents">
+
+      <article class="document-card">
+
+        <div class="icon">📄</div>
+
+        <h3>Wypowiedzenie umowy o pracę</h3>
+
+        <p>
+          Przygotuj prosty wzór wypowiedzenia
+          umowy o pracę.
+        </p>
+
+        <a href="#generator" class="btn">
+          Utwórz dokument
+        </a>
+
+      </article>
+
+      <article class="document-card">
+
+        <div class="icon">🏠</div>
+
+        <h3>Umowa najmu mieszkania</h3>
+
+        <p>
+          Przygotuj podstawowy wzór umowy najmu.
+        </p>
+
+        <button
+          class="btn secondary"
+          onclick="showComingSoon()">
+          Wkrótce
         </button>
 
-      </form>
+      </article>
 
-      <div id="status" class="status"></div>
+      <article class="document-card">
 
-      <div class="trust">
-        <span>✓ <b>Aktualne oferty</b></span>
-        <span>✓ <b>Porównanie cen</b></span>
-        <span>✓ <b>Bez rejestracji</b></span>
-      </div>
+        <div class="icon">🚗</div>
+
+        <h3>Umowa kupna-sprzedaży samochodu</h3>
+
+        <p>
+          Podstawowy wzór umowy sprzedaży pojazdu.
+        </p>
+
+        <button
+          class="btn secondary"
+          onclick="showComingSoon()">
+          Wkrótce
+        </button>
+
+      </article>
+
+      <article class="document-card">
+
+        <div class="icon">💰</div>
+
+        <h3>Umowa pożyczki</h3>
+
+        <p>
+          Prosty wzór umowy pożyczki pieniędzy.
+        </p>
+
+        <button
+          class="btn secondary"
+          onclick="showComingSoon()">
+          Wkrótce
+        </button>
+
+      </article>
+
+      <article class="document-card">
+
+        <div class="icon">✉️</div>
+
+        <h3>Wezwanie do zapłaty</h3>
+
+        <p>
+          Przygotuj podstawowy wzór wezwania do zapłaty.
+        </p>
+
+        <button
+          class="btn secondary"
+          onclick="showComingSoon()">
+          Wkrótce
+        </button>
+
+      </article>
+
+      <article class="document-card">
+
+        <div class="icon">📝</div>
+
+        <h3>Pełnomocnictwo</h3>
+
+        <p>
+          Przygotuj prosty wzór pełnomocnictwa.
+        </p>
+
+        <button
+          class="btn secondary"
+          onclick="showComingSoon()">
+          Wkrótce
+        </button>
+
+      </article>
 
     </div>
 
@@ -619,52 +657,179 @@ footer small{
 
 </section>
 
-<section>
+<section class="generator" id="generator">
 
   <div class="container">
 
-    <div class="stats">
+    <div class="section-title" style="padding-top:58px">
 
-      <div class="stat">
-        <strong id="offerCount">0</strong>
-        <span>ofert w bazie</span>
-      </div>
+      <h2>Generator wypowiedzenia umowy o pracę</h2>
 
-      <div class="stat">
-        <strong id="cityCount">0</strong>
-        <span>miast</span>
-      </div>
-
-      <div class="stat">
-        <strong id="categoryCount">0</strong>
-        <span>kategorii usług</span>
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-<section id="oferty">
-
-  <div class="container">
-
-    <div class="section-head">
-
-      <h2>Oferty</h2>
-
-      <p id="description">
-        Najlepsze ceny znalezione w bazie.
+      <p>
+        Uzupełnij dane po lewej stronie. Podgląd dokumentu
+        pojawi się automatycznie.
       </p>
 
     </div>
 
-    <div class="results" id="results">
+    <div class="generator-grid">
 
-      <div class="empty loading">
-        <span class="spinner"></span>
-        Wczytywanie ofert…
+      <div class="panel generator-form">
+
+        <h2>Dane dokumentu</h2>
+
+        <div class="panel-description">
+          Wpisz informacje dokładnie tak, jak mają pojawić
+          się w dokumencie.
+        </div>
+
+        <label for="employee">
+          Imię i nazwisko pracownika
+        </label>
+
+        <input
+          id="employee"
+          placeholder="np. Jan Kowalski"
+        >
+
+        <label for="employeeAddress">
+          Adres pracownika
+        </label>
+
+        <textarea
+          id="employeeAddress"
+          placeholder="np. ul. Przykładowa 10, 00-001 Warszawa"
+        ></textarea>
+
+        <label for="employer">
+          Nazwa pracodawcy
+        </label>
+
+        <input
+          id="employer"
+          placeholder="np. ABC Sp. z o.o."
+        >
+
+        <label for="employerAddress">
+          Adres pracodawcy
+        </label>
+
+        <textarea
+          id="employerAddress"
+          placeholder="np. ul. Firmowa 20, 00-002 Warszawa"
+        ></textarea>
+
+        <label for="cityDate">
+          Miejscowość i data
+        </label>
+
+        <input
+          id="cityDate"
+          placeholder="np. Warszawa, 22 sierpnia 2026 r."
+        >
+
+        <label for="contract">
+          Rodzaj umowy
+        </label>
+
+        <select id="contract">
+          <option>umowy o pracę</option>
+          <option>umowy o pracę na czas określony</option>
+          <option>umowy o pracę na czas nieokreślony</option>
+        </select>
+
+        <div class="form-actions">
+
+          <button
+            class="btn"
+            onclick="updateDocument()"
+          >
+            Aktualizuj podgląd
+          </button>
+
+          <button
+            class="btn secondary"
+            onclick="window.print()"
+          >
+            Drukuj / PDF
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="preview-wrap">
+
+        <div class="preview-label">
+          PODGLĄD DOKUMENTU
+        </div>
+
+        <div class="paper" id="paper">
+
+          <div class="paper-top">
+
+            <div>
+              <strong id="previewEmployee">
+                Imię i nazwisko
+              </strong>
+              <br>
+              <span id="previewEmployeeAddress">
+                Adres pracownika
+              </span>
+            </div>
+
+            <div>
+              <strong id="previewEmployer">
+                Pracodawca
+              </strong>
+              <br>
+              <span id="previewEmployerAddress">
+                Adres pracodawcy
+              </span>
+            </div>
+
+          </div>
+
+          <div id="previewDate">
+            Miejscowość, data
+          </div>
+
+          <div class="paper-title">
+            WYPOWIEDZENIE UMOWY O PRACĘ
+          </div>
+
+          <p>
+            Niniejszym wypowiadam
+            <span id="previewContract">
+              umowę o pracę
+            </span>
+            zawartą pomiędzy mną a pracodawcą.
+          </p>
+
+          <p>
+            Proszę o przyjęcie niniejszego wypowiedzenia
+            oraz rozwiązanie stosunku pracy z zachowaniem
+            obowiązującego okresu wypowiedzenia.
+          </p>
+
+          <p>
+            Z poważaniem,
+          </p>
+
+          <div class="signature">
+
+            <div>
+              podpis pracownika
+            </div>
+
+            <div>
+              potwierdzenie odbioru przez pracodawcę
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
 
     </div>
@@ -677,55 +842,88 @@ footer small{
 
   <div class="container">
 
-    <div class="section-head">
-
+    <div class="section-title">
       <h2>Jak to działa?</h2>
-
       <p>
-        Trzy proste kroki do znalezienia korzystnej oferty.
+        Przygotowanie dokumentu zajmuje tylko kilka chwil.
       </p>
-
     </div>
 
     <div class="steps">
 
-      <div class="step">
-
+      <article class="step">
         <div class="number">1</div>
-
-        <h3>Wyszukaj usługę</h3>
-
+        <h3>Wybierz dokument</h3>
         <p>
-          Wpisz nazwę usługi albo wybierz kategorię.
+          Wybierz wzór, którego potrzebujesz.
         </p>
+      </article>
 
-      </div>
-
-      <div class="step">
-
+      <article class="step">
         <div class="number">2</div>
-
-        <h3>Wybierz miasto</h3>
-
+        <h3>Uzupełnij dane</h3>
         <p>
-          Zawęź wyniki do miejsca, w którym szukasz usługi.
+          Wpisz informacje wymagane w dokumencie.
         </p>
+      </article>
 
-      </div>
-
-      <div class="step">
-
+      <article class="step">
         <div class="number">3</div>
-
-        <h3>Porównaj ceny</h3>
-
+        <h3>Wydrukuj lub zapisz PDF</h3>
         <p>
-          Sprawdź oferty i wybierz tę, która najbardziej Ci odpowiada.
+          Sprawdź podgląd i użyj funkcji drukowania
+          przeglądarki, aby zapisać dokument jako PDF.
         </p>
-
-      </div>
+      </article>
 
     </div>
+
+  </div>
+
+</section>
+
+<section class="faq" id="faq">
+
+  <div class="container">
+
+    <div class="section-title" style="padding-top:10px">
+      <h2>Najczęściej zadawane pytania</h2>
+    </div>
+
+    <details>
+      <summary>
+        Czy muszę zakładać konto?
+      </summary>
+
+      <p>
+        Nie. Ta wersja generatora działa bez rejestracji.
+      </p>
+    </details>
+
+    <details>
+      <summary>
+        Czy mogę zapisać dokument jako PDF?
+      </summary>
+
+      <p>
+        Tak. Kliknij „Drukuj / PDF”, a następnie w oknie
+        drukowania wybierz opcję zapisu jako PDF.
+      </p>
+    </details>
+
+    <details>
+      <summary>
+        Czy generator stanowi poradę prawną?
+      </summary>
+
+      <p>
+        Nie. Generator udostępnia wzory dokumentów.
+        Przed wykorzystaniem dokumentu należy upewnić się,
+        że jego treść odpowiada konkretnej sytuacji.
+        W przypadku wątpliwości warto skonsultować się
+        z profesjonalnym prawnikiem.
+      </p>
+    </details>
 
   </div>
 
@@ -738,947 +936,117 @@ footer small{
   <div class="container footer-inner">
 
     <div class="logo">
-      Porównaj<span>Ceny</span>
+      Dokument<span>Prosto</span>
     </div>
 
     <small>
-      © 2026 PorównajCeny. Proste porównywanie usług.
+      © 2026 DokumentProsto
     </small>
 
   </div>
 
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
 
-/* =====================================================
-   SUPABASE
-===================================================== */
+function value(id, fallback){
 
-const SUPABASE_URL =
-  "https://fihvmezvilotlwsxghji.supabase.co";
-
-const SUPABASE_KEY =
-  "sb_publishable_S1kWUDbshGl8NNw8-4K6-Q_yAkRg3yz";
-
-const db =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
-
-/* =====================================================
-   ELEMENTY
-===================================================== */
-
-const results =
-  document.getElementById("results");
-
-const city =
-  document.getElementById("city");
-
-const category =
-  document.getElementById("category");
-
-const query =
-  document.getElementById("query");
-
-const searchForm =
-  document.getElementById("searchForm");
-
-const searchButton =
-  document.getElementById("searchButton");
-
-const status =
-  document.getElementById("status");
-
-
-/* =====================================================
-   ZEGAR NA ŻYWO
-===================================================== */
-
-function updateClock(){
-
-  const now = new Date();
+  const element =
+    document.getElementById(id);
 
   const text =
-    new Intl.DateTimeFormat(
-      "pl-PL",
-      {
-        timeZone:"Europe/Warsaw",
-        day:"2-digit",
-        month:"2-digit",
-        year:"numeric",
-        hour:"2-digit",
-        minute:"2-digit",
-        second:"2-digit"
-      }
-    ).format(now);
+    element.value.trim();
 
-  document.getElementById("clock").textContent =
-    text;
-}
-
-updateClock();
-
-setInterval(updateClock,1000);
-
-
-/* =====================================================
-   BEZPIECZNY TEKST
-===================================================== */
-
-function safe(value){
-
-  if(
-    value === null ||
-    value === undefined
-  ){
-    return "";
-  }
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  return text || fallback;
 }
 
 
-/* =====================================================
-   CENA
-===================================================== */
+function updateDocument(){
 
-function price(value,currency){
-
-  const number = Number(value);
-
-  if(Number.isNaN(number)){
-    return "—";
-  }
-
-  const symbols = {
-    PLN:"zł",
-    EUR:"€",
-    USD:"$",
-    GBP:"£"
-  };
-
-  const code =
-    String(currency || "PLN").toUpperCase();
-
-  const symbol =
-    symbols[code] || currency || "zł";
-
-  return (
-    number
-      .toFixed(2)
-      .replace(".",",")
-    + " "
-    + symbol
-  );
-}
-
-
-/* =====================================================
-   POBIERANIE MIAST
-===================================================== */
-
-async function loadCities(){
-
-  const { data, error } =
-    await db
-      .from("miasta")
-      .select("id,nazwa,slug")
-      .order("nazwa",{ascending:true});
-
-  if(error){
-
-    console.error(
-      "Błąd miasta:",
-      error
+  document.getElementById(
+    "previewEmployee"
+  ).textContent =
+    value(
+      "employee",
+      "Imię i nazwisko"
     );
-
-    return;
-  }
-
-  city.innerHTML =
-    `<option value="">
-      Wszystkie miasta
-    </option>`;
-
-  (data || []).forEach(item => {
-
-    const option =
-      document.createElement("option");
-
-    option.value = item.id;
-
-    option.textContent =
-      item.nazwa;
-
-    city.appendChild(option);
-
-  });
-
-  document.getElementById("cityCount")
-    .textContent =
-      (data || []).length;
-}
-
-
-/* =====================================================
-   POBIERANIE KATEGORII
-===================================================== */
-
-async function loadCategories(){
-
-  const { data, error } =
-    await db
-      .from("kategorie")
-      .select("id,nazwa,slug")
-      .order("nazwa",{ascending:true});
-
-  if(error){
-
-    console.error(
-      "Błąd kategorii:",
-      error
-    );
-
-    return;
-  }
-
-  category.innerHTML =
-    `<option value="">
-      Wszystkie usługi
-    </option>`;
-
-  (data || []).forEach(item => {
-
-    const option =
-      document.createElement("option");
-
-    option.value =
-      item.id;
-
-    option.textContent =
-      item.nazwa;
-
-    category.appendChild(option);
-
-  });
-
-  document.getElementById("categoryCount")
-    .textContent =
-      (data || []).length;
-}
-
-
-/* =====================================================
-   POBIERANIE USŁUG
-=====================================================
-
-   WAŻNE:
-
-   ceny posiada:
-   usluga_id
-
-   Miasto i kategoria są związane
-   z usługą, a nie bezpośrednio z ceną.
-*/
-
-async function loadServices(){
-
-  const { data, error } =
-    await db
-      .from("uslugi")
-      .select(
-        "id,nazwa,slug,kategoria_id,miasto_id"
-      );
-
-  if(error){
-
-    console.error(
-      "Błąd usług:",
-      error
-    );
-
-    throw error;
-  }
-
-  return data || [];
-}
-
-
-/* =====================================================
-   LICZBA OFERT
-===================================================== */
-
-async function loadOfferCount(){
-
-  const { count, error } =
-    await db
-      .from("ceny")
-      .select(
-        "*",
-        {
-          count:"exact",
-          head:true
-        }
-      )
-      .eq(
-        "aktywna",
-        true
-      );
-
-  if(error){
-
-    console.error(
-      "Błąd liczby ofert:",
-      error
-    );
-
-    return;
-  }
-
-  document.getElementById("offerCount")
-    .textContent =
-      count || 0;
-}
-
-
-/* =====================================================
-   POBIERANIE CEN
-===================================================== */
-
-async function loadPrices(){
-
-  const { data, error } =
-    await db
-      .from("ceny")
-      .select(`
-        id,
-        usluga_id,
-        cena,
-        waluta,
-        cena_typ,
-        cena_do,
-        aktywna,
-        zweryfikowana,
-        data_weryfikacji,
-        zrodlo,
-        zrodlo_url
-      `)
-      .eq(
-        "aktywna",
-        true
-      )
-      .order(
-        "cena",
-        {
-          ascending:true
-        }
-      );
-
-  if(error){
-
-    console.error(
-      "Błąd cen:",
-      error
-    );
-
-    throw error;
-  }
-
-  return data || [];
-}
-
-
-/* =====================================================
-   ŁADOWANIE OFERT
-===================================================== */
-
-async function loadOffers(){
-
-  results.innerHTML =
-    `
-    <div class="empty loading">
-      <span class="spinner"></span>
-      Wczytywanie ofert…
-    </div>
-    `;
-
-  try{
-
-    const [
-      services,
-      prices
-    ] =
-      await Promise.all([
-        loadServices(),
-        loadPrices()
-      ]);
-
-
-    /* =========================
-       MAPA USŁUG
-    ========================= */
-
-    const serviceMap =
-      new Map();
-
-    services.forEach(service => {
-
-      serviceMap.set(
-        String(service.id),
-        service
-      );
-
-    });
-
-
-    /* =========================
-       POŁĄCZENIE CEN + USŁUG
-    ========================= */
-
-    let offers =
-      prices
-        .map(priceItem => {
-
-          const service =
-            serviceMap.get(
-              String(
-                priceItem.usluga_id
-              )
-            );
-
-          if(!service){
-            return null;
-          }
-
-          return {
-            ...priceItem,
-            service
-          };
-
-        })
-        .filter(Boolean);
-
-
-    /* =========================
-       FILTRY
-    ========================= */
-
-    const text =
-      query.value
-        .trim()
-        .toLowerCase();
-
-    const cityId =
-      city.value;
-
-    const categoryId =
-      category.value;
-
-
-    if(cityId){
-
-      offers =
-        offers.filter(item =>
-
-          String(
-            item.service.miasto_id
-          ) === String(cityId)
-
-        );
-
-    }
-
-
-    if(categoryId){
-
-      offers =
-        offers.filter(item =>
-
-          String(
-            item.service.kategoria_id
-          ) === String(categoryId)
-
-        );
-
-    }
-
-
-    /* =========================
-       TEKST WYSZUKIWANIA
-    ========================= */
-
-    if(text){
-
-      offers =
-        offers.filter(item => {
-
-          const serviceName =
-            item.service?.nazwa || "";
-
-          const serviceSlug =
-            item.service?.slug || "";
-
-          return (
-
-            serviceName +
-            " " +
-            serviceSlug
-
-          )
-            .toLowerCase()
-            .includes(text);
-
-        });
-
-    }
-
-
-    /* =========================
-       MAPA MIAST
-    ========================= */
-
-    const [
-      citiesResult,
-      categoriesResult
-    ] =
-      await Promise.all([
-
-        db
-          .from("miasta")
-          .select("id,nazwa"),
-
-        db
-          .from("kategorie")
-          .select("id,nazwa")
-
-      ]);
-
-
-    const cityMap =
-      new Map();
-
-    (
-      citiesResult.data || []
-    ).forEach(item => {
-
-      cityMap.set(
-        String(item.id),
-        item.nazwa
-      );
-
-    });
-
-
-    const categoryMap =
-      new Map();
-
-    (
-      categoriesResult.data || []
-    ).forEach(item => {
-
-      categoryMap.set(
-        String(item.id),
-        item.nazwa
-      );
-
-    });
-
-
-    /* =========================
-       DODANIE NAZW
-    ========================= */
-
-    offers =
-      offers.map(item => {
-
-        return {
-
-          ...item,
-
-          cityName:
-            cityMap.get(
-              String(
-                item.service.miasto_id
-              )
-            ) || "Polska",
-
-          categoryName:
-            categoryMap.get(
-              String(
-                item.service.kategoria_id
-              )
-            ) || "Usługa"
-
-        };
-
-      });
-
-
-    renderOffers(offers);
-
-
-    status.textContent =
-      `Znaleziono ${offers.length} ofert.`;
-
-    status.className =
-      "status success";
-
-
-  }catch(error){
-
-    console.error(
-      "BŁĄD SUPABASE:",
-      error
-    );
-
-
-    results.innerHTML =
-      `
-      <div class="empty">
-
-        <strong>
-          Nie udało się pobrać ofert.
-        </strong>
-
-        <br><br>
-
-        Sprawdź połączenie z Supabase
-        oraz uprawnienia tabel.
-
-        <br><br>
-
-        <small>
-          ${safe(
-            error?.message ||
-            "Nieznany błąd"
-          )}
-        </small>
-
-      </div>
-      `;
-
-
-    status.textContent =
-      "Wystąpił błąd podczas pobierania danych.";
-
-    status.className =
-      "status error";
-
-  }
-
-}
-
-
-/* =====================================================
-   WYŚWIETLANIE OFERT
-===================================================== */
-
-function renderOffers(items){
-
-  if(!items.length){
-
-    results.innerHTML =
-      `
-      <div class="empty">
-
-        <strong>
-          Nie znaleziono ofert.
-        </strong>
-
-        <br><br>
-
-        Spróbuj zmienić wyszukiwanie
-        albo wybór miasta/kategorii.
-
-      </div>
-      `;
-
-    document.getElementById(
-      "description"
-    ).textContent =
-      "Brak ofert dla wybranych filtrów.";
-
-    return;
-  }
 
 
   document.getElementById(
-    "description"
+    "previewEmployeeAddress"
   ).textContent =
-    `Znaleziono ${items.length} ofert.`;
-
-
-  results.innerHTML =
-
-    items
-      .map(item => {
-
-        const service =
-          item.service?.nazwa ||
-          "Usługa";
-
-        const categoryName =
-          item.categoryName ||
-          "Usługa";
-
-        const town =
-          item.cityName ||
-          "Polska";
-
-        const source =
-          item.zrodlo ||
-          "Usługodawca";
-
-        const verified =
-          item.zweryfikowana;
-
-        const url =
-          item.zrodlo_url;
-
-
-        let action = "";
-
-
-        if(url){
-
-          action =
-            `
-            <a
-              href="${safe(url)}"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <button
-                class="mini"
-                type="button"
-              >
-                Sprawdź
-              </button>
-            </a>
-            `;
-
-        }else{
-
-          action =
-            `
-            <button
-              class="mini"
-              type="button"
-              onclick="alert('Ta oferta nie ma jeszcze podanego linku źródłowego.')"
-            >
-              Sprawdź
-            </button>
-            `;
-
-        }
-
-
-        return `
-
-          <article class="card">
-
-            <div>
-
-              <span class="tag">
-                ${safe(categoryName)}
-              </span>
-
-              ${
-                verified
-                ?
-                `
-                <span class="verified">
-                  ✓ Zweryfikowana
-                </span>
-                `
-                :
-                ""
-              }
-
-            </div>
-
-
-            <h3>
-              ${safe(service)}
-            </h3>
-
-
-            <div class="provider">
-              Źródło:
-              ${safe(source)}
-            </div>
-
-
-            <div class="location">
-              📍 ${safe(town)}
-            </div>
-
-
-            <div class="price-row">
-
-              <div class="price">
-
-                <strong>
-                  ${price(
-                    item.cena,
-                    item.waluta
-                  )}
-                </strong>
-
-                <br>
-
-                <small>
-                  ${safe(
-                    item.cena_typ ||
-                    "za usługę"
-                  )}
-                </small>
-
-              </div>
-
-              ${action}
-
-            </div>
-
-          </article>
-
-        `;
-
-      })
-      .join("");
-
-}
-
-
-/* =====================================================
-   WYSZUKIWANIE
-===================================================== */
-
-searchForm.addEventListener(
-  "submit",
-  async event => {
-
-    event.preventDefault();
-
-    searchButton.disabled =
-      true;
-
-    searchButton.textContent =
-      "Szukam…";
-
-
-    await loadOffers();
-
-
-    searchButton.disabled =
-      false;
-
-    searchButton.textContent =
-      "Szukaj";
-
-
-    document
-      .getElementById("oferty")
-      .scrollIntoView({
-        behavior:"smooth"
-      });
-
-  }
-);
-
-
-/* =====================================================
-   START
-===================================================== */
-
-async function start(){
-
-  try{
-
-    status.textContent =
-      "Łączenie z bazą danych…";
-
-    status.className =
-      "status";
-
-
-    await Promise.all([
-
-      loadCities(),
-
-      loadCategories(),
-
-      loadOfferCount(),
-
-      loadOffers()
-
-    ]);
-
-
-    status.textContent =
-      "Połączono z bazą danych.";
-
-    status.className =
-      "status success";
-
-
-  }catch(error){
-
-    console.error(
-      "Błąd startu:",
-      error
+    value(
+      "employeeAddress",
+      "Adres pracownika"
     );
 
 
-    status.textContent =
-      "Nie udało się połączyć z bazą danych.";
+  document.getElementById(
+    "previewEmployer"
+  ).textContent =
+    value(
+      "employer",
+      "Pracodawca"
+    );
 
-    status.className =
-      "status error";
+
+  document.getElementById(
+    "previewEmployerAddress"
+  ).textContent =
+    value(
+      "employerAddress",
+      "Adres pracodawcy"
+    );
 
 
-    results.innerHTML =
-      `
-      <div class="empty">
+  document.getElementById(
+    "previewDate"
+  ).textContent =
+    value(
+      "cityDate",
+      "Miejscowość, data"
+    );
 
-        <strong>
-          Nie udało się połączyć z Supabase.
-        </strong>
 
-        <br><br>
-
-        Sprawdź konsolę przeglądarki
-        lub ustawienia RLS w Supabase.
-
-        <br><br>
-
-        <small>
-          ${safe(
-            error?.message ||
-            "Nieznany błąd"
-          )}
-        </small>
-
-      </div>
-      `;
-
-  }
+  document.getElementById(
+    "previewContract"
+  ).textContent =
+    document.getElementById(
+      "contract"
+    ).value;
 
 }
 
 
-start();
+function showComingSoon(){
+
+  alert(
+    "Ten generator będzie dostępny wkrótce."
+  );
+
+}
+
+
+document
+  .querySelectorAll(
+    "#employee,#employeeAddress,#employer,#employerAddress,#cityDate,#contract"
+  )
+  .forEach(element => {
+
+    element.addEventListener(
+      "input",
+      updateDocument
+    );
+
+    element.addEventListener(
+      "change",
+      updateDocument
+    );
+
+  });
+
+
+updateDocument();
 
 </script>
 
